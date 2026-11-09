@@ -6,6 +6,12 @@ import { supabase } from "../../lib/supabase";
 export default function GemUploadPage() {
   const [gemName, setGemName] = useState("");
   const [gemType, setGemType] = useState("");
+  const [originCountry, setOriginCountry] = useState("");
+  const [originRegion, setOriginRegion] = useState("");
+  const [treatment, setTreatment] = useState("");
+  const [color, setColor] = useState("");
+  const [shape, setShape] = useState("");
+  const [laboratory, setLaboratory] = useState("");
   const [carat, setCarat] = useState("");
   const [price, setPrice] = useState("");
   const [certificateNo, setCertificateNo] = useState("");
@@ -16,6 +22,12 @@ export default function GemUploadPage() {
       {
         gem_name: gemName,
         gem_type: gemType,
+        origin_country: originCountry,
+        origin_region: originRegion,
+        treatment: treatment,
+        color: color,
+        shape: shape,
+        laboratory: laboratory,
         carat: carat,
         price: price,
         certificate_no: certificateNo,
@@ -33,6 +45,12 @@ export default function GemUploadPage() {
 
       setGemName("");
       setGemType("");
+      setOriginCountry("");
+      setOriginRegion("");
+      setTreatment("");
+      setColor("");
+      setShape("");
+      setLaboratory("");
       setCarat("");
       setPrice("");
       setCertificateNo("");
@@ -44,7 +62,7 @@ export default function GemUploadPage() {
     <main
       style={{
         padding: "40px",
-        maxWidth: "800px",
+        maxWidth: "900px",
         margin: "0 auto",
         fontFamily: "Arial, sans-serif",
       }}
@@ -55,7 +73,7 @@ export default function GemUploadPage() {
           marginBottom: "25px",
         }}
       >
-        Royal Ceylon Gems - Gem Upload
+        Royal Ceylon Gems - Professional Gem Upload
       </h1>
 
       <input
@@ -73,6 +91,72 @@ export default function GemUploadPage() {
         placeholder="Gem Type"
         value={gemType}
         onChange={(e) => setGemType(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "12px",
+        }}
+      />
+
+      <input
+        placeholder="Origin Country"
+        value={originCountry}
+        onChange={(e) => setOriginCountry(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "12px",
+        }}
+      />
+
+      <input
+        placeholder="Origin Region"
+        value={originRegion}
+        onChange={(e) => setOriginRegion(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "12px",
+        }}
+      />
+
+      <input
+        placeholder="Treatment (Unheated / Heated)"
+        value={treatment}
+        onChange={(e) => setTreatment(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "12px",
+        }}
+      />
+
+      <input
+        placeholder="Color"
+        value={color}
+        onChange={(e) => setColor(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "12px",
+        }}
+      />
+
+      <input
+        placeholder="Shape"
+        value={shape}
+        onChange={(e) => setShape(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "12px",
+        }}
+      />
+
+      <input
+        placeholder="Laboratory (GRS / GIA / SSEF)"
+        value={laboratory}
+        onChange={(e) => setLaboratory(e.target.value)}
         style={{
           width: "100%",
           padding: "12px",
@@ -114,12 +198,12 @@ export default function GemUploadPage() {
       />
 
       <textarea
-        placeholder="Description"
+        placeholder="Gem Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         style={{
           width: "100%",
-          height: "120px",
+          height: "150px",
           padding: "12px",
           marginBottom: "20px",
         }}
@@ -129,13 +213,13 @@ export default function GemUploadPage() {
         onClick={handleSubmit}
         style={{
           width: "100%",
-          padding: "14px",
-          backgroundColor: "#0d6efd",
+          padding: "15px",
+          background: "#0d6efd",
           color: "white",
           border: "none",
-          borderRadius: "6px",
-          cursor: "pointer",
+          borderRadius: "8px",
           fontSize: "16px",
+          cursor: "pointer",
         }}
       >
         Upload Gem
