@@ -10,6 +10,12 @@ export default function ChairmanDashboard() {
 
   const chairmanPassword = "KalanaRCG2026";
 
+  useEffect(() => {
+    if (authenticated) {
+      loadSellers();
+    }
+  }, [authenticated]);
+
   const handleLogin = () => {
     if (password === chairmanPassword) {
       setAuthenticated(true);
@@ -18,19 +24,15 @@ export default function ChairmanDashboard() {
     }
   };
 
-  useEffect(() => {
-    if (authenticated) {
-      loadSellers();
-    }
-  }, [authenticated]);
-
   const loadSellers = async () => {
     const { data, error } = await supabase
       .from("sellers")
       .select("*")
       .order("id", { ascending: false });
 
-    if (!error) {
+    if (error) {
+      console.error(error);
+    } else {
       setSellers(data || []);
     }
   };
@@ -43,6 +45,7 @@ export default function ChairmanDashboard() {
 
     if (!error) {
       loadSellers();
+      alert("Seller Approved Successfully");
     }
   };
 
@@ -54,12 +57,20 @@ export default function ChairmanDashboard() {
 
     if (!error) {
       loadSellers();
+      alert("Seller Rejected Successfully");
     }
   };
 
   if (!authenticated) {
     return (
-      <main style={{ padding: "40px", maxWidth: "500px", margin: "0 auto" }}>
+      <main
+        style={{
+          padding: "40px",
+          maxWidth: "500px",
+          margin: "0 auto",
+          fontFamily: "Arial, sans-serif",
+        }}
+      >
         <h1>Chairman Access</h1>
 
         <input
@@ -69,7 +80,7 @@ export default function ChairmanDashboard() {
           onChange={(e) => setPassword(e.target.value)}
           style={{
             width: "100%",
-            padding: "10px",
+            padding: "12px",
             marginBottom: "15px",
           }}
         />
@@ -82,7 +93,8 @@ export default function ChairmanDashboard() {
             backgroundColor: "#0d3b66",
             color: "white",
             border: "none",
-            borderRadius: "5px",
+            borderRadius: "6px",
+            cursor: "pointer",
           }}
         >
           Enter Dashboard
@@ -91,15 +103,94 @@ export default function ChairmanDashboard() {
     );
   }
 
+  const approvedCount = sellers.filter(
+    (seller) => seller.status === "approved"
+  ).length;
+
+  const pendingCount = sellers.filter(
+    (seller) => seller.status === "pending"
+  ).length;
+
+  const rejectedCount = sellers.filter(
+    (seller) => seller.status === "rejected"
+  ).length;
+
   return (
-    <main style={{ padding: "40px", maxWidth: "1000px", margin: "0 auto" }}>
-      <h1>Royal Ceylon Gems Chairman Dashboard</h1>
+    <main
+      style={{
+        padding: "40px",
+        maxWidth: "1200px",
+        margin: "0 auto",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <h1
+        style={{
+          color: "#0d3b66",
+          marginBottom: "30px",
+        }}
+      >
+        Royal Ceylon Gems Chairman Dashboard
+      </h1>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "20px",
+          marginBottom: "40px",
+        }}
+      >
+        <div
+          style={{
+            background: "#0d6efd",
+            color: "white",
+            padding: "20px",
+            borderRadius: "12px",
+          }}
+        >
+          <h3>Total Sellers</h3>
+          <h1>{sellers.length}</h1>
+        </div>
+
+        <div
+          style={{
+            background: "#198754",
+            color: "white",
+            padding: "20px",
+            borderRadius: "12px",
+          }}
+        >
+          <h3>Approved Sellers</h3>
+          <h1>{approvedCount}</h1>
+        </div>
+
+        <div
+          style={{
+            background: "#ffc107",
+            color: "black",
+            padding: "20px",
+            borderRadius: "12px",
+          }}
+        >
+          <h3>Pending Sellers</h3>
+          <h1>{pendingCount}</h1>
+        </div>
+
+        <div
+          style={{
+            background: "#dc3545",
+            color: "white",
+            padding: "20px",
+            borderRadius: "12px",
+          }}
+        >
+          <h3>Rejected Sellers</h3>
+          <h1>{rejectedCount}</h1>
+        </div>
+      </div>
 
       <h2>Seller Applications</h2>
-
-      <p>
-        <strong>Total Sellers:</strong> {sellers.length}
-      </p>
 
       {sellers.length === 0 ? (
         <p>No seller applications found.</p>
@@ -108,11 +199,11 @@ export default function ChairmanDashboard() {
           <div
             key={seller.id}
             style={{
-              border: "1px solid #ccc",
-              padding: "15px",
-              marginBottom: "15px",
-              borderRadius: "8px",
-              backgroundColor: "#f8f9fa",
+              border: "1px solid #ddd",
+              borderRadius: "12px",
+              padding: "20px",
+              marginBottom: "20px",
+              background: "#f8f9fa",
             }}
           >
             <h3>{seller.full_name}</h3>
@@ -137,16 +228,16 @@ export default function ChairmanDashboard() {
               <strong>Status:</strong> {seller.status}
             </p>
 
-            <div style={{ marginTop: "10px" }}>
+            <div style={{ marginTop: "15px" }}>
               <button
                 onClick={() => approveSeller(seller.id)}
                 style={{
-                  backgroundColor: "green",
+                  background: "green",
                   color: "white",
                   border: "none",
-                  padding: "8px 12px",
+                  padding: "10px 15px",
                   marginRight: "10px",
-                  borderRadius: "5px",
+                  borderRadius: "6px",
                   cursor: "pointer",
                 }}
               >
@@ -156,11 +247,11 @@ export default function ChairmanDashboard() {
               <button
                 onClick={() => rejectSeller(seller.id)}
                 style={{
-                  backgroundColor: "red",
+                  background: "red",
                   color: "white",
                   border: "none",
-                  padding: "8px 12px",
-                  borderRadius: "5px",
+                  padding: "10px 15px",
+                  borderRadius: "6px",
                   cursor: "pointer",
                 }}
               >
