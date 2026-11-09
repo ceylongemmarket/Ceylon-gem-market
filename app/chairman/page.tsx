@@ -86,7 +86,7 @@ export default function ChairmanDashboard() {
         margin: "0 auto",
       }}
     >
-      <h1>Royal Ceylon Gems Chairman Dashboard</h1>
+      <h1>Royal Ceylon Gems Chairman Dashboard V2</h1>
 
       <h2>Seller Applications</h2>
 
