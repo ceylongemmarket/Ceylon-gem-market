@@ -105,4 +105,28 @@ export default function ChairmanDashboard() {
           >
             <h3>{seller.full_name}</h3>
 
-  
+            <p>
+              <strong>Business:</strong> {seller.business_name}
+            </p>
+
+            <p>
+              <strong>Email:</strong> {seller.email}
+            </p>
+
+            <p>
+              <strong>Mobile:</strong> {seller.mobile}
+            </p>
+
+            <p>
+              <strong>Country:</strong> {seller.country}
+            </p>
+
+            <p>
+              <strong>Status:</strong> {seller.status}
+            </p>
+          </div>
+        ))
+      )}
+    </main>
+  );
+}
