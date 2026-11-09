@@ -11,21 +11,19 @@ export default function RegisterPage() {
   const [country, setCountry] = useState("");
 
   const handleRegister = async () => {
-    const { error } = await supabase
-      .from("sellers")
-      .insert([
-        {
-          full_name: fullName,
-          business_name: businessName,
-          email: email,
-          mobile: mobile,
-          country: country,
-        },
-      ]);
+    const { error } = await supabase.from("sellers").insert([
+      {
+        full_name: fullName,
+        business_name: businessName,
+        email: email,
+        mobile: mobile,
+        country: country,
+      },
+    ]);
 
     if (error) {
-      console.error(error);
       alert("Registration Failed");
+      console.error(error);
     } else {
       alert("Registration Submitted Successfully");
 
@@ -89,4 +87,36 @@ export default function RegisterPage() {
         onChange={(e) => setMobile(e.target.value)}
         style={{
           width: "100%",
-          
+          padding: "10px",
+          marginBottom: "10px",
+        }}
+      />
+
+      <input
+        placeholder="Country"
+        value={country}
+        onChange={(e) => setCountry(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "20px",
+        }}
+      />
+
+      <button
+        onClick={handleRegister}
+        style={{
+          width: "100%",
+          padding: "12px",
+          backgroundColor: "#0066cc",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Register
+      </button>
+    </main>
+  );
+}
