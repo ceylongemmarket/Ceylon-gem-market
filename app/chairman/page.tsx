@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "../../lib/supabase";
 
 export default function ChairmanDashboard() {
   const [password, setPassword] = useState("");
   const [authenticated, setAuthenticated] = useState(false);
+  const [sellers, setSellers] = useState<any[]>([]);
 
   const chairmanPassword = "KalanaRCG2026";
 
@@ -13,6 +15,25 @@ export default function ChairmanDashboard() {
       setAuthenticated(true);
     } else {
       alert("Invalid Chairman Password");
+    }
+  };
+
+  useEffect(() => {
+    if (authenticated) {
+      fetchSellers();
+    }
+  }, [authenticated]);
+
+  const fetchSellers = async () => {
+    const { data, error } = await supabase
+      .from("sellers")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error(error);
+    } else {
+      setSellers(data || []);
     }
   };
 
@@ -48,6 +69,7 @@ export default function ChairmanDashboard() {
             color: "white",
             border: "none",
             borderRadius: "5px",
+            cursor: "pointer",
           }}
         >
           Enter Dashboard
@@ -57,16 +79,30 @@ export default function ChairmanDashboard() {
   }
 
   return (
-    <main style={{ padding: "40px" }}>
+    <main
+      style={{
+        padding: "40px",
+        maxWidth: "1000px",
+        margin: "0 auto",
+      }}
+    >
       <h1>Royal Ceylon Gems Chairman Dashboard</h1>
 
-      <h2>System Ready</h2>
+      <h2>Seller Applications</h2>
 
-      <ul>
-        <li>Seller Registration Database Connected</li>
-        <li>Supabase Connected</li>
-        <li>Chairman Access Protected</li>
-      </ul>
-    </main>
-  );
-}
+      {sellers.length === 0 ? (
+        <p>No seller registrations found.</p>
+      ) : (
+        sellers.map((seller) => (
+          <div
+            key={seller.id}
+            style={{
+              border: "1px solid #ddd",
+              padding: "15px",
+              marginBottom: "15px",
+              borderRadius: "8px",
+            }}
+          >
+            <h3>{seller.full_name}</h3>
+
+  
