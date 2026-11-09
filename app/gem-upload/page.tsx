@@ -87,4 +87,59 @@ export default function GemUploadPage() {
         style={{
           width: "100%",
           padding: "12px",
-        
+          marginBottom: "12px",
+        }}
+      />
+
+      <input
+        placeholder="Price (USD)"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "12px",
+        }}
+      />
+
+      <input
+        placeholder="Certificate Number"
+        value={certificateNo}
+        onChange={(e) => setCertificateNo(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "12px",
+          marginBottom: "12px",
+        }}
+      />
+
+      <textarea
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        style={{
+          width: "100%",
+          height: "120px",
+          padding: "12px",
+          marginBottom: "20px",
+        }}
+      />
+
+      <button
+        onClick={handleSubmit}
+        style={{
+          width: "100%",
+          padding: "14px",
+          backgroundColor: "#0d6efd",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+          fontSize: "16px",
+        }}
+      >
+        Upload Gem
+      </button>
+    </main>
+  );
+}
