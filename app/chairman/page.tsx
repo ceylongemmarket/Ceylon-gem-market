@@ -20,15 +20,15 @@ export default function ChairmanDashboard() {
 
   useEffect(() => {
     if (authenticated) {
-      fetchSellers();
+      loadSellers();
     }
   }, [authenticated]);
 
-  const fetchSellers = async () => {
+  const loadSellers = async () => {
     const { data, error } = await supabase
       .from("sellers")
       .select("*")
-      .order("created_at", { ascending: false });
+      .order("id", { ascending: false });
 
     if (error) {
       console.error(error);
@@ -90,43 +90,5 @@ export default function ChairmanDashboard() {
 
       <h2>Seller Applications</h2>
 
-      {sellers.length === 0 ? (
-        <p>No seller registrations found.</p>
-      ) : (
-        sellers.map((seller) => (
-          <div
-            key={seller.id}
-            style={{
-              border: "1px solid #ddd",
-              padding: "15px",
-              marginBottom: "15px",
-              borderRadius: "8px",
-            }}
-          >
-            <h3>{seller.full_name}</h3>
-
-            <p>
-              <strong>Business:</strong> {seller.business_name}
-            </p>
-
-            <p>
-              <strong>Email:</strong> {seller.email}
-            </p>
-
-            <p>
-              <strong>Mobile:</strong> {seller.mobile}
-            </p>
-
-            <p>
-              <strong>Country:</strong> {seller.country}
-            </p>
-
-            <p>
-              <strong>Status:</strong> {seller.status}
-            </p>
-          </div>
-        ))
-      )}
-    </main>
-  );
-}
+      <p>
+        <strong>Total Sellers:</strong> 
