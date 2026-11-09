@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { supabase } from "../../lib/supabase";
 
 export default function RegisterPage() {
   const [fullName, setFullName] = useState("");
@@ -8,6 +9,33 @@ export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [country, setCountry] = useState("");
+
+  const handleRegister = async () => {
+    const { error } = await supabase
+      .from("sellers")
+      .insert([
+        {
+          full_name: fullName,
+          business_name: businessName,
+          email: email,
+          mobile: mobile,
+          country: country,
+        },
+      ]);
+
+    if (error) {
+      console.error(error);
+      alert("Registration Failed");
+    } else {
+      alert("Registration Submitted Successfully");
+
+      setFullName("");
+      setBusinessName("");
+      setEmail("");
+      setMobile("");
+      setCountry("");
+    }
+  };
 
   return (
     <main
@@ -26,50 +54,39 @@ export default function RegisterPage() {
         placeholder="Full Name"
         value={fullName}
         onChange={(e) => setFullName(e.target.value)}
-        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "10px",
+        }}
       />
 
       <input
         placeholder="Business Name"
         value={businessName}
         onChange={(e) => setBusinessName(e.target.value)}
-        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "10px",
+        }}
       />
 
       <input
         placeholder="Email Address"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "10px",
+        }}
       />
 
       <input
         placeholder="Mobile Number"
         value={mobile}
         onChange={(e) => setMobile(e.target.value)}
-        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
-      />
-
-      <input
-        placeholder="Country"
-        value={country}
-        onChange={(e) => setCountry(e.target.value)}
-        style={{ width: "100%", padding: "10px", marginBottom: "20px" }}
-      />
-
-      <button
         style={{
           width: "100%",
-          padding: "12px",
-          backgroundColor: "#0066cc",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        Register
-      </button>
-    </main>
-  );
-}
+          
