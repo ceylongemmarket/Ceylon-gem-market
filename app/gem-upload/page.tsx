@@ -17,44 +17,94 @@ export default function GemUploadPage() {
   const [certificateNo, setCertificateNo] = useState("");
   const [description, setDescription] = useState("");
 
+  const [gemImage, setGemImage] = useState<File | null>(null);
+  const [certificateImage, setCertificateImage] =
+    useState<File | null>(null);
+
   const handleSubmit = async () => {
-    const { error } = await supabase.from("gems").insert([
-      {
-        gem_name: gemName,
-        gem_type: gemType,
-        origin_country: originCountry,
-        origin_region: originRegion,
-        treatment: treatment,
-        color: color,
-        shape: shape,
-        laboratory: laboratory,
-        carat: carat,
-        price: price,
-        certificate_no: certificateNo,
-        description: description,
-        seller_name: "Approved Seller",
-        seller_email: "seller@example.com",
-      },
-    ]);
+    let gemImageUrl = "";
+    let certificateImageUrl = "";
 
-    if (error) {
-      console.error(error);
-      alert("Gem Upload Failed");
-    } else {
-      alert("Gem Uploaded Successfully");
+    try {
+      if (gemImage) {
+        const gemFileName = `${Date.now()}-${gemImage.name}`;
 
-      setGemName("");
-      setGemType("");
-      setOriginCountry("");
-      setOriginRegion("");
-      setTreatment("");
-      setColor("");
-      setShape("");
-      setLaboratory("");
-      setCarat("");
-      setPrice("");
-      setCertificateNo("");
-      setDescription("");
+        const { error } = await supabase.storage
+          .from("gem-images")
+          .upload(gemFileName, gemImage);
+
+        if (!error) {
+          const { data } = supabase.storage
+            .from("gem-images")
+            .getPublicUrl(gemFileName);
+
+          gemImageUrl = data.publicUrl;
+        }
+      }
+
+      if (certificateImage) {
+        const certFileName = `${Date.now()}-${certificateImage.name}`;
+
+        const { error } = await supabase.storage
+          .from("certificate-images")
+          .upload(certFileName, certificateImage);
+
+        if (!error) {
+          const { data } = supabase.storage
+            .from("certificate-images")
+            .getPublicUrl(certFileName);
+
+          certificateImageUrl = data.publicUrl;
+        }
+      }
+
+      const { error } = await supabase
+        .from("gems")
+        .insert([
+          {
+            gem_name: gemName,
+            gem_type: gemType,
+            origin_country: originCountry,
+            origin_region: originRegion,
+            treatment: treatment,
+            color: color,
+            shape: shape,
+            laboratory: laboratory,
+            carat: carat,
+            price: price,
+            certificate_no: certificateNo,
+            description: description,
+            gem_image: gemImageUrl,
+            certificate_image: certificateImageUrl,
+            seller_name: "Approved Seller",
+            seller_email: "seller@example.com",
+          },
+        ]);
+
+      if (error) {
+        console.error(error);
+        alert("Gem Upload Failed");
+      } else {
+        alert("Gem Uploaded Successfully");
+
+        setGemName("");
+        setGemType("");
+        setOriginCountry("");
+        setOriginRegion("");
+        setTreatment("");
+        setColor("");
+        setShape("");
+        setLaboratory("");
+        setCarat("");
+        setPrice("");
+        setCertificateNo("");
+        setDescription("");
+        setGemImage(null);
+        setCertificateImage(null);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Upload Error");
     }
   };
 
@@ -194,6 +244,36 @@ export default function GemUploadPage() {
           width: "100%",
           padding: "12px",
           marginBottom: "12px",
+        }}
+      />
+
+      <h3>Gem Image</h3>
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) =>
+          setGemImage(
+            e.target.files ? e.target.files[0] : null
+          )
+        }
+        style={{
+          marginBottom: "20px",
+        }}
+      />
+
+      <h3>Certificate Image</h3>
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) =>
+          setCertificateImage(
+            e.target.files ? e.target.files[0] : null
+          )
+        }
+        style={{
+          marginBottom: "20px",
         }}
       />
 
