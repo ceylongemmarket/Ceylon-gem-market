@@ -1,1 +1,139 @@
+"use client";
 
+import { useState } from "react";
+import { supabase } from "../../lib/supabase";
+
+export default function GemUploadPage() {
+  const [gemName, setGemName] = useState("");
+  const [gemType, setGemType] = useState("");
+  const [carat, setCarat] = useState("");
+  const [price, setPrice] = useState("");
+  const [certificateNo, setCertificateNo] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = async () => {
+    const { error } = await supabase
+      .from("gems")
+      .insert([
+        {
+          gem_name: gemName,
+          gem_type: gemType,
+          carat: carat,
+          price: price,
+          certificate_no: certificateNo,
+          description: description,
+          seller_name: "Approved Seller",
+          seller_email: "seller@example.com",
+        },
+      ]);
+
+    if (error) {
+      console.error(error);
+      alert("Gem Upload Failed");
+    } else {
+      alert("Gem Uploaded Successfully");
+
+      setGemName("");
+      setGemType("");
+      setCarat("");
+      setPrice("");
+      setCertificateNo("");
+      setDescription("");
+    }
+  };
+
+  return (
+    <main
+      style={{
+        padding: "40px",
+        maxWidth: "700px",
+        margin: "0 auto",
+        fontFamily: "Arial, sans-serif",
+      }}
+    >
+      <h1>Gem Upload Form</h1>
+
+      <input
+        placeholder="Gem Name"
+        value={gemName}
+        onChange={(e) => setGemName(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "10px",
+        }}
+      />
+
+      <input
+        placeholder="Gem Type"
+        value={gemType}
+        onChange={(e) => setGemType(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "10px",
+        }}
+      />
+
+      <input
+        placeholder="Carat"
+        value={carat}
+        onChange={(e) => setCarat(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "10px",
+        }}
+      />
+
+      <input
+        placeholder="Price (USD)"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "10px",
+        }}
+      />
+
+      <input
+        placeholder="Certificate Number"
+        value={certificateNo}
+        onChange={(e) => setCertificateNo(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "10px",
+        }}
+      />
+
+      <textarea
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        style={{
+          width: "100%",
+          height: "120px",
+          padding: "10px",
+          marginBottom: "20px",
+        }}
+      />
+
+      <button
+        onClick={handleSubmit}
+        style={{
+          width: "100%",
+          padding: "12px",
+          background: "#0d6efd",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        Upload Gem
+      </button>
+    </main>
+  );
+}
