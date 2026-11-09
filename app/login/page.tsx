@@ -8,14 +8,7 @@ export default function LoginPage() {
   const [userType, setUserType] = useState("buyer");
 
   return (
-    <main
-      style={{
-        padding: "40px",
-        maxWidth: "500px",
-        margin: "0 auto",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
+    <main style={{ padding: "40px", maxWidth: "500px", margin: "0 auto" }}>
       <h1>Royal Ceylon Gems Login</h1>
 
       <p>Select your account type and sign in.</p>
@@ -25,11 +18,7 @@ export default function LoginPage() {
         placeholder="Email Address"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "10px",
-          marginBottom: "10px",
-        }}
+        style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
       />
 
       <input
@@ -37,18 +26,13 @@ export default function LoginPage() {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        style={{
-          width: "100%",
-          padding: "10px",
-          marginBottom: "15px",
-        }}
+        style={{ width: "100%", padding: "10px", marginBottom: "15px" }}
       />
 
       <div style={{ marginBottom: "20px" }}>
         <label>
           <input
             type="radio"
-            name="userType"
             value="buyer"
             checked={userType === "buyer"}
             onChange={(e) => setUserType(e.target.value)}
@@ -61,25 +45,11 @@ export default function LoginPage() {
         <label>
           <input
             type="radio"
-            name="userType"
             value="seller"
             checked={userType === "seller"}
             onChange={(e) => setUserType(e.target.value)}
           />
           Seller
-        </label>
-
-        <br />
-
-        <label>
-          <input
-            type="radio"
-            name="userType"
-            value="chairman"
-            checked={userType === "chairman"}
-            onChange={(e) => setUserType(e.target.value)}
-          />
-          Chairman
         </label>
       </div>
 
@@ -91,7 +61,6 @@ export default function LoginPage() {
           color: "white",
           border: "none",
           borderRadius: "5px",
-          cursor: "pointer",
         }}
       >
         Login
