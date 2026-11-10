@@ -30,7 +30,7 @@ export default function GemUploadPage() {
   const [description, setDescription] = useState("");
 
   const handleUpload = () => {
-    alert("Upload Form Working Successfully");
+    alert("Gem Upload Form Ready");
   };
 
   return (
