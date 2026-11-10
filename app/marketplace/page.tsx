@@ -11,45 +11,31 @@ export default function MarketplacePage() {
     loadGems();
   }, []);
 
-  const loadGems = async () => {
+  async function loadGems() {
     const { data, error } = await supabase
       .from("gems")
-      .select("*")
-      .order("id", { ascending: false });
+      .select("*");
 
     if (!error) {
       setGems(data || []);
     }
-  };
+  }
 
-  const filteredGems = gems.filter(
-    (gem) =>
-      gem.gem_name?.toLowerCase().includes(search.toLowerCase()) ||
-      gem.gem_type?.toLowerCase().includes(search.toLowerCase()) ||
-      gem.origin_country?.toLowerCase().includes(search.toLowerCase())
+  const filteredGems = gems.filter((gem) =>
+    (gem.gem_name || "")
+      .toLowerCase()
+      .includes(search.toLowerCase())
   );
 
   return (
     <main
       style={{
-        background: "#f5f7fa",
-        minHeight: "100vh",
         padding: "30px",
+        minHeight: "100vh",
+        background: "#f5f7fa",
       }}
     >
-      <div
-        style={{
-          background: "#0d3b66",
-          color: "#ffffff",
-          padding: "40px",
-          borderRadius: "12px",
-          marginBottom: "30px",
-          textAlign: "center",
-        }}
-      >
-        <h1>Royal Ceylon Gems Marketplace</h1>
-        <p>Verified Sri Lankan Gemstone Marketplace</p>
-      </div>
+      <h1>Royal Ceylon Gems Marketplace</h1>
 
       <input
         type="text"
@@ -58,28 +44,27 @@ export default function MarketplacePage() {
         onChange={(e) => setSearch(e.target.value)}
         style={{
           width: "100%",
-          padding: "15px",
-          borderRadius: "10px",
-          border: "1px solid #ccc",
-          marginBottom: "30px",
+          padding: "12px",
+          marginTop: "20px",
+          marginBottom: "20px",
         }}
       />
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "25px",
+          gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))",
+          gap: "20px",
         }}
       >
         {filteredGems.map((gem) => (
           <div
             key={gem.id}
             style={{
-              background: "#ffffff",
-              borderRadius: "12px",
-              overflow: "hidden",
-              boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+              background: "#fff",
+              padding: "15px",
+              borderRadius: "10px",
+              border: "1px solid #ddd",
             }}
           >
             {gem.gem_image ? (
@@ -90,6 +75,7 @@ export default function MarketplacePage() {
                   width: "100%",
                   height: "250px",
                   objectFit: "cover",
+                  borderRadius: "10px",
                 }}
               />
             ) : (
@@ -97,4 +83,41 @@ export default function MarketplacePage() {
                 style={{
                   height: "250px",
                   background: "#ececec",
-                  display:
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  borderRadius: "10px",
+                }}
+              >
+                No Image
+              </div>
+            )}
+
+            <h2>{gem.gem_name}</h2>
+
+            <p>Type: {gem.gem_type}</p>
+
+            <p>Country: {gem.origin_country}</p>
+
+            <p>Carat: {gem.gem_carat}</p>
+
+            <p>Price: USD {gem.gem_price}</p>
+
+            <button
+              style={{
+                width: "100%",
+                padding: "10px",
+                background: "#0d6efd",
+                color: "#fff",
+                border: "none",
+                borderRadius: "8px",
+              }}
+            >
+              View Details
+            </button>
+          </div>
+        ))}
+      </div>
+    </main>
+  );
+}
