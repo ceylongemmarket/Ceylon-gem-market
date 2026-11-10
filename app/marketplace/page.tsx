@@ -1,180 +1,169 @@
-"use client";
+import { supabase } from "@/lib/supabase";
 
-import { useEffect, useState } from "react";
-import { supabase } from "../../lib/supabase";
+export default async function GemDetails({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const { data: gem } = await supabase
+    .from("gems")
+    .select("*")
+    .eq("id", params.id)
+    .single();
 
-export default function MarketplacePage() {
-  const [gems, setGems] = useState<any[]>([]);
-
-  useEffect(() => {
-    loadGems();
-  }, []);
-
-  const loadGems = async () => {
-    const { data, error } = await supabase
-      .from("gems")
-      .select("*")
-      .order("id", { ascending: false });
-
-    if (!error) {
-      setGems(data || []);
-    }
-  };
+  if (!gem) {
+    return (
+      <div style={{ padding: "40px" }}>
+        <h2>Gem not found</h2>
+      </div>
+    );
+  }
 
   return (
-    <main
+    <div
       style={{
-        background: "#f5f7fa",
-        minHeight: "100vh",
-        padding: "30px",
+        maxWidth: "1200px",
+        margin: "auto",
+        padding: "40px",
       }}
     >
       <div
         style={{
-          background: "#0d3b66",
-          color: "white",
-          padding: "40px",
-          borderRadius: "12px",
-          marginBottom: "30px",
-          textAlign: "center",
-        }}
-      >
-        <h1>Royal Ceylon Gems Marketplace</h1>
-        <p>Verified Sri Lankan Gemstones Marketplace</p>
-      </div>
-
-      <input
-        type="text"
-        placeholder="Search Gems..."
-        style={{
-          width: "100%",
-          padding: "15px",
-          borderRadius: "8px",
-          border: "1px solid #ccc",
-          marginBottom: "30px",
-        }}
-      />
-
-      <div
-        style={{
           display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit,minmax(320px,1fr))",
-          gap: "25px",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "40px",
+          alignItems: "start",
         }}
       >
-        {gems.map((gem) => (
-          <div
-            key={gem.id}
+        <div>
+          {gem.gem_image ? (
+            <img
+              src={gem.gem_image}
+              alt={gem.gem_name}
+              style={{
+                width: "100%",
+                borderRadius: "15px",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                height: "400px",
+                background: "#f5f5f5",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "15px",
+              }}
+            >
+              No Image
+            </div>
+          )}
+        </div>
+
+        <div>
+          <h1
             style={{
-              background: "white",
-              borderRadius: "12px",
-              overflow: "hidden",
-              boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+              fontSize: "32px",
+              marginBottom: "15px",
             }}
           >
-            {gem.gem_image ? (
-              <img
-                src={gem.gem_image}
-                alt={gem.gem_name}
-                style={{
-                  width: "100%",
-                  height: "250px",
-                  objectFit: "cover",
-                }}
-              />
-            ) : (
-              <div
-                style={{
-                  height: "250px",
-                  background: "#e9ecef",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                No Image
-              </div>
-            )}
+            {gem.gem_name}
+          </h1>
 
-            <div style={{ padding: "20px" }}>
-              <h2
-                style={{
-                  marginBottom: "10px",
-                  color: "#0d3b66",
-                }}
-              >
-                {gem.gem_name}
-              </h2>
+          <h2
+            style={{
+              color: "green",
+              marginBottom: "25px",
+            }}
+          >
+            USD {gem.gem_price}
+          </h2>
 
-              <p>
-                <strong>Type:</strong> {gem.gem_type}
-              </p>
+          <p>
+            <strong>Type:</strong> {gem.gem_type}
+          </p>
 
-              <p>
-                <strong>Origin:</strong>{" "}
-                {gem.origin_country}
-              </p>
+          <p>
+            <strong>Weight:</strong> {gem.gem_carat} ct
+          </p>
 
-              <p>
-                <strong>Region:</strong>{" "}
-                {gem.origin_region}
-              </p>
+          <p>
+            <strong>Color:</strong> {gem.color}
+          </p>
 
-              <p>
-                <strong>Treatment:</strong>{" "}
-                {gem.treatment}
-              </p>
+          <p>
+            <strong>Shape:</strong> {gem.shape}
+          </p>
 
-              <p>
-                <strong>Color:</strong> {gem.color}
-              </p>
+          <p>
+            <strong>Origin Country:</strong>{" "}
+            {gem.origin_country}
+          </p>
 
-              <p>
-                <strong>Shape:</strong> {gem.shape}
-              </p>
+          <p>
+            <strong>Origin Region:</strong>{" "}
+            {gem.origin_region}
+          </p>
 
-              <p>
-                <strong>Laboratory:</strong>{" "}
-                {gem.laboratory}
-              </p>
+          <p>
+            <strong>Treatment:</strong>{" "}
+            {gem.treatment}
+          </p>
 
-              <p>
-                <strong>Carat:</strong> {gem.carat}
-              </p>
+          <p>
+            <strong>Laboratory:</strong>{" "}
+            {gem.laboratory}
+          </p>
 
-              <h3
-                style={{
-                  color: "green",
-                  marginTop: "10px",
-                }}
-              >
-                USD {gem.price}
-              </h3>
+          <p>
+            <strong>Certificate No:</strong>{" "}
+            {gem.certificate_no}
+          </p>
 
-              <p>
-                <strong>Certificate:</strong>{" "}
-                {gem.certificate_no}
-              </p>
+          <p>
+            <strong>Status:</strong>{" "}
+            {gem.treatment === "Unheated"
+              ? "✅ Unheated"
+              : "🔥 Heated"}
+          </p>
 
-              <button
-                style={{
-                  width: "100%",
-                  marginTop: "15px",
-                  padding: "12px",
-                  background: "#0d6efd",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "8px",
-                  cursor: "pointer",
-                }}
-              >
-                View Details
-              </button>
-            </div>
+          <div
+            style={{
+              display: "flex",
+              gap: "15px",
+              marginTop: "30px",
+            }}
+          >
+            <button
+              style={{
+                background: "#198754",
+                color: "#fff",
+                border: "none",
+                padding: "15px 30px",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+            >
+              Buy Now
+            </button>
+
+            <button
+              style={{
+                background: "#0d6efd",
+                color: "#fff",
+                border: "none",
+                padding: "15px 30px",
+                borderRadius: "10px",
+                cursor: "pointer",
+              }}
+            >
+              Contact Seller
+            </button>
           </div>
-        ))}
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
