@@ -7,46 +7,46 @@ export default function RegisterPage() {
   const [fullName, setFullName] = useState("");
   const [businessName, setBusinessName] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
   const [country, setCountry] = useState("");
 
   const handleRegister = async () => {
-    const { error } = await supabase.from("sellers").insert([
-      {
-        full_name: fullName,
-        business_name: businessName,
-        email: email,
-        mobile: mobile,
-        country: country,
-      },
-    ]);
+    const { error } = await supabase
+      .from("sellers")
+      .insert([
+        {
+          full_name: fullName,
+          business_name: businessName,
+          email: email,
+          mobile_number: mobileNumber,
+          country: country,
+        },
+      ]);
 
     if (error) {
-      alert("Registration Failed");
-      console.error(error);
-    } else {
-      alert("Registration Submitted Successfully");
-
-      setFullName("");
-      setBusinessName("");
-      setEmail("");
-      setMobile("");
-      setCountry("");
+      alert(error.message);
+      console.log(error);
+      return;
     }
+
+    alert("Registration Successful");
+
+    setFullName("");
+    setBusinessName("");
+    setEmail("");
+    setMobileNumber("");
+    setCountry("");
   };
 
   return (
-    <main
+    <div
       style={{
-        padding: "40px",
         maxWidth: "600px",
-        margin: "0 auto",
-        fontFamily: "Arial, sans-serif",
+        margin: "50px auto",
+        padding: "20px",
       }}
     >
       <h1>Seller Registration</h1>
-
-      <p>Join Royal Ceylon Gems Marketplace</p>
 
       <input
         placeholder="Full Name"
@@ -54,7 +54,7 @@ export default function RegisterPage() {
         onChange={(e) => setFullName(e.target.value)}
         style={{
           width: "100%",
-          padding: "10px",
+          padding: "12px",
           marginBottom: "10px",
         }}
       />
@@ -65,29 +65,29 @@ export default function RegisterPage() {
         onChange={(e) => setBusinessName(e.target.value)}
         style={{
           width: "100%",
-          padding: "10px",
+          padding: "12px",
           marginBottom: "10px",
         }}
       />
 
       <input
-        placeholder="Email Address"
+        placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         style={{
           width: "100%",
-          padding: "10px",
+          padding: "12px",
           marginBottom: "10px",
         }}
       />
 
       <input
         placeholder="Mobile Number"
-        value={mobile}
-        onChange={(e) => setMobile(e.target.value)}
+        value={mobileNumber}
+        onChange={(e) => setMobileNumber(e.target.value)}
         style={{
           width: "100%",
-          padding: "10px",
+          padding: "12px",
           marginBottom: "10px",
         }}
       />
@@ -98,7 +98,7 @@ export default function RegisterPage() {
         onChange={(e) => setCountry(e.target.value)}
         style={{
           width: "100%",
-          padding: "10px",
+          padding: "12px",
           marginBottom: "20px",
         }}
       />
@@ -108,15 +108,14 @@ export default function RegisterPage() {
         style={{
           width: "100%",
           padding: "12px",
-          backgroundColor: "#0066cc",
-          color: "white",
+          background: "#0d6efd",
+          color: "#fff",
           border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
+          borderRadius: "8px",
         }}
       >
         Register
       </button>
-    </main>
+    </div>
   );
 }
