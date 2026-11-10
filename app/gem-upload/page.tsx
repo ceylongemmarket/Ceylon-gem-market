@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 
+const inputStyle = {
+  width: "100%",
+  padding: "12px",
+  marginBottom: "15px",
+  border: "1px solid #ccc",
+  borderRadius: "8px",
+} as React.CSSProperties;
+
 export default function GemUploadPage() {
   const [gemName, setGemName] = useState("");
   const [gemType, setGemType] = useState("");
@@ -20,6 +28,10 @@ export default function GemUploadPage() {
 
   const [sellerName, setSellerName] = useState("");
   const [description, setDescription] = useState("");
+
+  const handleUpload = () => {
+    alert("Upload Form Working Successfully");
+  };
 
   return (
     <main
@@ -145,7 +157,9 @@ export default function GemUploadPage() {
         }}
       />
 
-      <label><strong>Gem Image Upload</strong></label>
+      <label>
+        <strong>Gem Image Upload</strong>
+      </label>
 
       <input
         type="file"
@@ -153,7 +167,9 @@ export default function GemUploadPage() {
         style={inputStyle}
       />
 
-      <label><strong>Certificate Image Upload</strong></label>
+      <label>
+        <strong>Certificate Image Upload</strong>
+      </label>
 
       <input
         type="file"
@@ -162,6 +178,7 @@ export default function GemUploadPage() {
       />
 
       <button
+        onClick={handleUpload}
         style={{
           width: "100%",
           padding: "15px",
@@ -178,11 +195,3 @@ export default function GemUploadPage() {
     </main>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-  padding: "12px",
-  marginBottom: "15px",
-  border: "1px solid #ccc",
-  borderRadius: "8px",
-} as React.CSSProperties;
