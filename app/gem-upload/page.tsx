@@ -1,367 +1,113 @@
-"use client";
+const handleUpload = async () => {
+  try {
+    let gemImageUrl = "";
+    let certificateImageUrl = "";
 
-import { useState } from "react";
-import { supabase } from "../../lib/supabase";
+    // Upload Gem Image
+    if (gemImage) {
+      const gemFileName =
+        Date.now() + "-" + gemImage.name;
 
-const inputStyle = {
-  width: "100%",
-  padding: "12px",
-  marginBottom: "15px",
-  border: "1px solid #ccc",
-  borderRadius: "8px",
-} as React.CSSProperties;
-
-export default function GemUploadPage() {
-  const [gemName, setGemName] = useState("");
-  const [gemType, setGemType] = useState("");
-  const [gemPrice, setGemPrice] = useState("");
-  const [gemCarat, setGemCarat] = useState("");
-
-  const [originCountry, setOriginCountry] = useState("");
-  const [originRegion, setOriginRegion] = useState("");
-
-  const [treatment, setTreatment] = useState("");
-  const [color, setColor] = useState("");
-  const [shape, setShape] = useState("");
-  const [dimensions, setDimensions] = useState("");
-  const [transparency, setTransparency] = useState("");
-
-  const [laboratory, setLaboratory] = useState("");
-  const [certificateNo, setCertificateNo] = useState("");
-
-  const [sellerName, setSellerName] = useState("");
-  const [description, setDescription] = useState("");
-
-  const [gemImage, setGemImage] = useState<File | null>(null);
-  const [certificateImage, setCertificateImage] =
-    useState<File | null>(null);
-
-  const handleUpload = async () => {
-    try {
-      let gemImageUrl = "";
-      let certificateImageUrl = "";
-
-      if (gemImage) {
-        const gemFileName =
-          Date.now() + "-" + gemImage.name;
-
-        const { error } = await supabase.storage
+      const { error: gemError } =
+        await supabase.storage
           .from("gem-images")
           .upload(gemFileName, gemImage);
 
-        if (error) {
-          alert(error.message);
-          return;
-        }
-
-        const { data } = supabase.storage
-          .from("gem-images")
-          .getPublicUrl(gemFileName);
-
-        gemImageUrl = data.publicUrl;
-      }
-
-      if (certificateImage) {
-        const certFileName =
-          Date.now() + "-" +
-          certificateImage.name;
-
-        const { error } = await supabase.storage
-          .from("certificate-images")
-          .upload(
-            certFileName,
-            certificateImage
-          );
-
-        if (error) {
-          alert(error.message);
-          return;
-        }
-
-        const { data } = supabase.storage
-          .from("certificate-images")
-          .getPublicUrl(certFileName);
-
-        certificateImageUrl =
-          data.publicUrl;
-      }
-
-      const { error } = await supabase
-        .from("gems")
-        .insert([
-          {
-            gem_name: gemName,
-            gem_type: gemType,
-            gem_price: Number(gemPrice),
-            gem_carat: Number(gemCarat),
-
-            origin_country: originCountry,
-            origin_region: originRegion,
-
-            treatment,
-            color,
-            shape,
-            dimensions,
-            transparency,
-
-            laboratory,
-            certificate_no: certificateNo,
-
-            seller_name: sellerName,
-            description,
-
-            gem_image: gemImageUrl,
-            certificate_image:
-              certificateImageUrl,
-          },
-        ]);
-
-      if (error) {
-        alert(error.message);
+      if (gemError) {
+        alert(gemError.message);
         return;
       }
 
-      alert("Gem Uploaded Successfully");
+      const { data } = supabase.storage
+        .from("gem-images")
+        .getPublicUrl(gemFileName);
 
-      setGemName("");
-      setGemType("");
-      setGemPrice("");
-      setGemCarat("");
-      setOriginCountry("");
-      setOriginRegion("");
-      setTreatment("");
-      setColor("");
-      setShape("");
-      setDimensions("");
-      setTransparency("");
-      setLaboratory("");
-      setCertificateNo("");
-      setSellerName("");
-      setDescription("");
-    } catch (err) {
-      console.log(err);
-      alert("Upload Failed");
+      gemImageUrl = data.publicUrl;
     }
-  };
 
-  return (
-    <main
-      style={{
-        maxWidth: "1000px",
-        margin: "0 auto",
-        padding: "40px",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
-      <h1>Royal Ceylon Gems Upload</h1>
+    // Upload Certificate Image
+    if (certificateImage) {
+      const certFileName =
+        Date.now() + "-" + certificateImage.name;
 
-      <input
-        type="text"
-        placeholder="Gem Name"
-        value={gemName}
-        onChange={(e) =>
-          setGemName(e.target.value)
-        }
-        style={inputStyle}
-      />
+      const { error: certError } =
+        await supabase.storage
+          .from("certificate-images")
+          .upload(certFileName, certificateImage);
 
-      <input
-        type="text"
-        placeholder="Gem Type"
-        value={gemType}
-        onChange={(e) =>
-          setGemType(e.target.value)
-        }
-        style={inputStyle}
-      />
+      if (certError) {
+        alert(certError.message);
+        return;
+      }
 
-      <input
-        type="number"
-        placeholder="Price USD"
-        value={gemPrice}
-        onChange={(e) =>
-          setGemPrice(e.target.value)
-        }
-        style={inputStyle}
-      />
+      const { data } = supabase.storage
+        .from("certificate-images")
+        .getPublicUrl(certFileName);
 
-      <input
-        type="number"
-        placeholder="Carat Weight"
-        value={gemCarat}
-        onChange={(e) =>
-          setGemCarat(e.target.value)
-        }
-        style={inputStyle}
-      />
+      certificateImageUrl = data.publicUrl;
+    }
 
-      <input
-        type="text"
-        placeholder="Country of Origin"
-        value={originCountry}
-        onChange={(e) =>
-          setOriginCountry(e.target.value)
-        }
-        style={inputStyle}
-      />
+    const { error } = await supabase
+      .from("gems")
+      .insert([
+        {
+          gem_name: gemName,
+          gem_type: gemType,
 
-      <input
-        type="text"
-        placeholder="Origin Region"
-        value={originRegion}
-        onChange={(e) =>
-          setOriginRegion(e.target.value)
-        }
-        style={inputStyle}
-      />
+          price: Number(gemPrice),
+          carat: Number(gemCarat),
 
-      <select
-        value={treatment}
-        onChange={(e) =>
-          setTreatment(e.target.value)
-        }
-        style={inputStyle}
-      >
-        <option value="">
-          Select Treatment
-        </option>
-        <option value="Unheated">
-          Unheated
-        </option>
-        <option value="Heated">
-          Heated
-        </option>
-        <option value="Unknown">
-          Unknown
-        </option>
-      </select>
+          certificate_no: certificateNo,
 
-      <input
-        type="text"
-        placeholder="Color"
-        value={color}
-        onChange={(e) =>
-          setColor(e.target.value)
-        }
-        style={inputStyle}
-      />
+          origin_country: originCountry,
+          origin_region: originRegion,
 
-      <input
-        type="text"
-        placeholder="Shape"
-        value={shape}
-        onChange={(e) =>
-          setShape(e.target.value)
-        }
-        style={inputStyle}
-      />
+          treatment: treatment,
+          color: color,
+          shape: shape,
 
-      <input
-        type="text"
-        placeholder="Dimensions"
-        value={dimensions}
-        onChange={(e) =>
-          setDimensions(e.target.value)
-        }
-        style={inputStyle}
-      />
+          dimensions: dimensions,
+          transparency: transparency,
 
-      <input
-        type="text"
-        placeholder="Transparency"
-        value={transparency}
-        onChange={(e) =>
-          setTransparency(e.target.value)
-        }
-        style={inputStyle}
-      />
+          laboratory: laboratory,
 
-      <input
-        type="text"
-        placeholder="Laboratory"
-        value={laboratory}
-        onChange={(e) =>
-          setLaboratory(e.target.value)
-        }
-        style={inputStyle}
-      />
+          description: description,
 
-      <input
-        type="text"
-        placeholder="Certificate Number"
-        value={certificateNo}
-        onChange={(e) =>
-          setCertificateNo(e.target.value)
-        }
-        style={inputStyle}
-      />
+          seller_name: sellerName,
 
-      <input
-        type="text"
-        placeholder="Seller Name"
-        value={sellerName}
-        onChange={(e) =>
-          setSellerName(e.target.value)
-        }
-        style={inputStyle}
-      />
+          gem_image: gemImageUrl,
 
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) =>
-          setDescription(e.target.value)
-        }
-        style={{
-          width: "100%",
-          height: "120px",
-          padding: "12px",
-          marginBottom: "15px",
-          border: "1px solid #ccc",
-          borderRadius: "8px",
-        }}
-      />
+          certificate_image:
+            certificateImageUrl,
+        },
+      ]);
 
-      <label>Gem Image Upload</label>
+    if (error) {
+      alert(error.message);
+      return;
+    }
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) =>
-          setGemImage(
-            e.target.files?.[0] || null
-          )
-        }
-        style={inputStyle}
-      />
+    alert("Gem Uploaded Successfully");
 
-      <label>Certificate Image Upload</label>
+    setGemName("");
+    setGemType("");
+    setGemPrice("");
+    setGemCarat("");
+    setOriginCountry("");
+    setOriginRegion("");
+    setTreatment("");
+    setColor("");
+    setShape("");
+    setDimensions("");
+    setTransparency("");
+    setLaboratory("");
+    setCertificateNo("");
+    setSellerName("");
+    setDescription("");
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) =>
-          setCertificateImage(
-            e.target.files?.[0] || null
-          )
-        }
-        style={inputStyle}
-      />
-
-      <button
-        onClick={handleUpload}
-        style={{
-          width: "100%",
-          padding: "15px",
-          background: "#0d6efd",
-          color: "#fff",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-        }}
-      >
-        Upload Gem
-      </button>
-    </main>
-  );
-}
+    window.location.href = "/marketplace";
+  } catch (err) {
+    console.error(err);
+    alert("Upload Failed");
+  }
+};
