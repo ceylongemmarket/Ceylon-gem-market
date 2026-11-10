@@ -1,169 +1,100 @@
-import { supabase } from "@/lib/supabase";
+"use client";
 
-export default async function GemDetails({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const { data: gem } = await supabase
-    .from("gems")
-    .select("*")
-    .eq("id", params.id)
-    .single();
+import { useEffect, useState } from "react";
+import { supabase } from "../../lib/supabase";
 
-  if (!gem) {
-    return (
-      <div style={{ padding: "40px" }}>
-        <h2>Gem not found</h2>
-      </div>
-    );
-  }
+export default function MarketplacePage() {
+  const [gems, setGems] = useState<any[]>([]);
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    loadGems();
+  }, []);
+
+  const loadGems = async () => {
+    const { data, error } = await supabase
+      .from("gems")
+      .select("*")
+      .order("id", { ascending: false });
+
+    if (!error) {
+      setGems(data || []);
+    }
+  };
+
+  const filteredGems = gems.filter(
+    (gem) =>
+      gem.gem_name?.toLowerCase().includes(search.toLowerCase()) ||
+      gem.gem_type?.toLowerCase().includes(search.toLowerCase()) ||
+      gem.origin_country?.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
-    <div
+    <main
       style={{
-        maxWidth: "1200px",
-        margin: "auto",
-        padding: "40px",
+        background: "#f5f7fa",
+        minHeight: "100vh",
+        padding: "30px",
       }}
     >
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "40px",
-          alignItems: "start",
+          background: "#0d3b66",
+          color: "#ffffff",
+          padding: "40px",
+          borderRadius: "12px",
+          marginBottom: "30px",
+          textAlign: "center",
         }}
       >
-        <div>
-          {gem.gem_image ? (
-            <img
-              src={gem.gem_image}
-              alt={gem.gem_name}
-              style={{
-                width: "100%",
-                borderRadius: "15px",
-                objectFit: "cover",
-              }}
-            />
-          ) : (
-            <div
-              style={{
-                height: "400px",
-                background: "#f5f5f5",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: "15px",
-              }}
-            >
-              No Image
-            </div>
-          )}
-        </div>
-
-        <div>
-          <h1
-            style={{
-              fontSize: "32px",
-              marginBottom: "15px",
-            }}
-          >
-            {gem.gem_name}
-          </h1>
-
-          <h2
-            style={{
-              color: "green",
-              marginBottom: "25px",
-            }}
-          >
-            USD {gem.gem_price}
-          </h2>
-
-          <p>
-            <strong>Type:</strong> {gem.gem_type}
-          </p>
-
-          <p>
-            <strong>Weight:</strong> {gem.gem_carat} ct
-          </p>
-
-          <p>
-            <strong>Color:</strong> {gem.color}
-          </p>
-
-          <p>
-            <strong>Shape:</strong> {gem.shape}
-          </p>
-
-          <p>
-            <strong>Origin Country:</strong>{" "}
-            {gem.origin_country}
-          </p>
-
-          <p>
-            <strong>Origin Region:</strong>{" "}
-            {gem.origin_region}
-          </p>
-
-          <p>
-            <strong>Treatment:</strong>{" "}
-            {gem.treatment}
-          </p>
-
-          <p>
-            <strong>Laboratory:</strong>{" "}
-            {gem.laboratory}
-          </p>
-
-          <p>
-            <strong>Certificate No:</strong>{" "}
-            {gem.certificate_no}
-          </p>
-
-          <p>
-            <strong>Status:</strong>{" "}
-            {gem.treatment === "Unheated"
-              ? "✅ Unheated"
-              : "🔥 Heated"}
-          </p>
-
-          <div
-            style={{
-              display: "flex",
-              gap: "15px",
-              marginTop: "30px",
-            }}
-          >
-            <button
-              style={{
-                background: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "15px 30px",
-                borderRadius: "10px",
-                cursor: "pointer",
-              }}
-            >
-              Buy Now
-            </button>
-
-            <button
-              style={{
-                background: "#0d6efd",
-                color: "#fff",
-                border: "none",
-                padding: "15px 30px",
-                borderRadius: "10px",
-                cursor: "pointer",
-              }}
-            >
-              Contact Seller
-            </button>
-          </div>
-        </div>
+        <h1>Royal Ceylon Gems Marketplace</h1>
+        <p>Verified Sri Lankan Gemstone Marketplace</p>
       </div>
-    </div>
-  );
-}
+
+      <input
+        type="text"
+        placeholder="Search Gems..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          width: "100%",
+          padding: "15px",
+          borderRadius: "10px",
+          border: "1px solid #ccc",
+          marginBottom: "30px",
+        }}
+      />
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: "25px",
+        }}
+      >
+        {filteredGems.map((gem) => (
+          <div
+            key={gem.id}
+            style={{
+              background: "#ffffff",
+              borderRadius: "12px",
+              overflow: "hidden",
+              boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
+            }}
+          >
+            {gem.gem_image ? (
+              <img
+                src={gem.gem_image}
+                alt={gem.gem_name}
+                style={{
+                  width: "100%",
+                  height: "250px",
+                  objectFit: "cover",
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  height: "250px",
+                  background: "#ececec",
+                  display:
