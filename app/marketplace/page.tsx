@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { supabase } from "../../../lib/supabase";
 
 export default async function GemDetailsPage({
   params,
@@ -14,7 +14,7 @@ export default async function GemDetailsPage({
   if (!gem) {
     return (
       <div style={{ padding: "40px" }}>
-        Gem Not Found
+        <h2>Gem Not Found</h2>
       </div>
     );
   }
@@ -46,17 +46,24 @@ export default async function GemDetailsPage({
               }}
             />
           ) : (
-            <div>No Image</div>
+            <div
+              style={{
+                height: "400px",
+                background: "#eee",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "12px",
+              }}
+            >
+              No Image
+            </div>
           )}
 
           {gem.certificate_image && (
             <>
-              <h3
-                style={{
-                  marginTop: "25px",
-                }}
-              >
-                Certificate
+              <h3 style={{ marginTop: "20px" }}>
+                Certificate Image
               </h3>
 
               <img
@@ -74,56 +81,31 @@ export default async function GemDetailsPage({
         <div>
           <h1>{gem.gem_name}</h1>
 
-          <h2
-            style={{
-              color: "#d32f2f",
-            }}
-          >
+          <h2 style={{ color: "#d32f2f" }}>
             USD {gem.gem_price}
           </h2>
-
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-              marginBottom: "20px",
-            }}
-          >
-            <span
-              style={{
-                background: "#e8f5e9",
-                padding: "6px 12px",
-                borderRadius: "20px",
-              }}
-            >
-              ✓ Verified Seller
-            </span>
-
-            <span
-              style={{
-                background:
-                  gem.treatment === "Unheated"
-                    ? "#d4edda"
-                    : "#fff3cd",
-                padding: "6px 12px",
-                borderRadius: "20px",
-              }}
-            >
-              {gem.treatment === "Unheated"
-                ? "✅ Unheated"
-                : "🔥 Heated"}
-            </span>
-          </div>
-
-          <h3>Gem Information</h3>
 
           <p>
             <strong>Type:</strong> {gem.gem_type}
           </p>
 
           <p>
-            <strong>Weight:</strong>{" "}
-            {gem.gem_carat} Ct
+            <strong>Weight:</strong> {gem.gem_carat} Ct
+          </p>
+
+          <p>
+            <strong>Country:</strong>{" "}
+            {gem.origin_country}
+          </p>
+
+          <p>
+            <strong>Region:</strong>{" "}
+            {gem.origin_region}
+          </p>
+
+          <p>
+            <strong>Treatment:</strong>{" "}
+            {gem.treatment}
           </p>
 
           <p>
@@ -144,24 +126,6 @@ export default async function GemDetailsPage({
             {gem.transparency}
           </p>
 
-          <hr />
-
-          <h3>Origin</h3>
-
-          <p>
-            <strong>Country:</strong>{" "}
-            {gem.origin_country}
-          </p>
-
-          <p>
-            <strong>Region:</strong>{" "}
-            {gem.origin_region}
-          </p>
-
-          <hr />
-
-          <h3>Certification</h3>
-
           <p>
             <strong>Laboratory:</strong>{" "}
             {gem.laboratory}
@@ -172,13 +136,10 @@ export default async function GemDetailsPage({
             {gem.certificate_no}
           </p>
 
-          <hr />
-
-          <h3>Seller</h3>
-
-          <p>{gem.seller_name}</p>
-
-          <hr />
+          <p>
+            <strong>Seller:</strong>{" "}
+            {gem.seller_name}
+          </p>
 
           <h3>Description</h3>
 
