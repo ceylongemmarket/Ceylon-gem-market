@@ -11,17 +11,15 @@ export default function RegisterPage() {
   const [country, setCountry] = useState("");
 
   const handleRegister = async () => {
-    const { error } = await supabase
-      .from("sellers")
-      .insert([
-        {
-          full_name: fullName,
-          business_name: businessName,
-          email: email,
-          mobile_number: mobileNumber,
-          country: country,
-        },
-      ]);
+    const { error } = await supabase.from("sellers").insert([
+      {
+        full_name: fullName,
+        business_name: businessName,
+        email,
+        mobile_number: mobileNumber,
+        country,
+      },
+    ]);
 
     if (error) {
       alert(error.message);
@@ -112,6 +110,7 @@ export default function RegisterPage() {
           color: "#fff",
           border: "none",
           borderRadius: "8px",
+          cursor: "pointer",
         }}
       >
         Register
