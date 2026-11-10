@@ -13,7 +13,13 @@ export default function GemUploadPage() {
 
   const [treatment, setTreatment] = useState("");
   const [color, setColor] = useState("");
+  const [shape, setShape] = useState("");
+
+  const [laboratory, setLaboratory] = useState("");
+  const [certificateNo, setCertificateNo] = useState("");
+
   const [sellerName, setSellerName] = useState("");
+  const [description, setDescription] = useState("");
 
   return (
     <main
@@ -95,9 +101,63 @@ export default function GemUploadPage() {
 
       <input
         type="text"
+        placeholder="Shape"
+        value={shape}
+        onChange={(e) => setShape(e.target.value)}
+        style={inputStyle}
+      />
+
+      <input
+        type="text"
+        placeholder="Laboratory"
+        value={laboratory}
+        onChange={(e) => setLaboratory(e.target.value)}
+        style={inputStyle}
+      />
+
+      <input
+        type="text"
+        placeholder="Certificate Number"
+        value={certificateNo}
+        onChange={(e) => setCertificateNo(e.target.value)}
+        style={inputStyle}
+      />
+
+      <input
+        type="text"
         placeholder="Seller Name"
         value={sellerName}
         onChange={(e) => setSellerName(e.target.value)}
+        style={inputStyle}
+      />
+
+      <textarea
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        style={{
+          width: "100%",
+          height: "120px",
+          padding: "12px",
+          marginBottom: "15px",
+          border: "1px solid #ccc",
+          borderRadius: "8px",
+        }}
+      />
+
+      <label><strong>Gem Image Upload</strong></label>
+
+      <input
+        type="file"
+        accept="image/*"
+        style={inputStyle}
+      />
+
+      <label><strong>Certificate Image Upload</strong></label>
+
+      <input
+        type="file"
+        accept="image/*"
         style={inputStyle}
       />
 
