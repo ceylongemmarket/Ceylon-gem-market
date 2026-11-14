@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import { supabase } from "../../../lib/supabase";
 
 interface Gem {
@@ -24,11 +25,8 @@ interface Gem {
   certificate_image: string;
 }
 
-export default function GemDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default function GemDetailsPage() {
+  const params = useParams();
   const [gem, setGem] = useState<Gem | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -110,7 +108,6 @@ export default function GemDetailsPage({
                 style={{
                   width: "100%",
                   borderRadius: "15px",
-                  objectFit: "cover",
                 }}
               />
             ) : (
@@ -120,8 +117,8 @@ export default function GemDetailsPage({
                   background: "#eeeeee",
                   borderRadius: "15px",
                   display: "flex",
-                  alignItems: "center",
                   justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 No Image Available
@@ -130,11 +127,7 @@ export default function GemDetailsPage({
 
             {gem.certificate_image && (
               <>
-                <h3
-                  style={{
-                    marginTop: "25px",
-                  }}
-                >
+                <h3 style={{ marginTop: "25px" }}>
                   Certificate Image
                 </h3>
 
@@ -143,8 +136,8 @@ export default function GemDetailsPage({
                   alt="Certificate"
                   style={{
                     width: "100%",
-                    marginTop: "10px",
                     borderRadius: "15px",
+                    marginTop: "10px",
                   }}
                 />
               </>
@@ -176,21 +169,18 @@ export default function GemDetailsPage({
             <h2
               style={{
                 color: "#D32F2F",
-                fontSize: "40px",
+                fontSize: "42px",
               }}
             >
               USD {gem.price}
             </h2>
 
-            <hr
-              style={{
-                margin: "25px 0",
-              }}
-            />
+            <hr style={{ margin: "25px 0" }} />
 
             <table
               style={{
                 width: "100%",
+                lineHeight: "2",
               }}
             >
               <tbody>
@@ -246,11 +236,7 @@ export default function GemDetailsPage({
               </tbody>
             </table>
 
-            <hr
-              style={{
-                margin: "25px 0",
-              }}
-            />
+            <hr style={{ margin: "25px 0" }} />
 
             <h3>Description</h3>
 
@@ -262,11 +248,7 @@ export default function GemDetailsPage({
               {gem.description || "No description available"}
             </p>
 
-            <hr
-              style={{
-                margin: "25px 0",
-              }}
-            />
+            <hr style={{ margin: "25px 0" }} />
 
             <h3>Seller Information</h3>
 
@@ -288,7 +270,6 @@ export default function GemDetailsPage({
                 border: "none",
                 borderRadius: "12px",
                 cursor: "pointer",
-                fontSize: "16px",
                 fontWeight: "bold",
               }}
             >
