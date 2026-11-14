@@ -4,8 +4,22 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { supabase } from "../../lib/supabase";
 
+interface Gem {
+  id: number;
+  gem_name: string;
+  gem_type: string;
+  price: number;
+  carat: number;
+  gem_image: string;
+  color: string;
+  treatment: string;
+  origin_country: string;
+  origin_region: string;
+  laboratory: string;
+}
+
 export default function MarketplacePage() {
-  const [gems, setGems] = useState<any[]>([]);
+  const [gems, setGems] = useState<Gem[]>([]);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -49,6 +63,7 @@ export default function MarketplacePage() {
         }}
       >
         <h1>Royal Ceylon Gems Marketplace</h1>
+
         <p>
           Buy Certified Natural Gemstones From Trusted Sri Lankan Sellers
         </p>
@@ -71,7 +86,8 @@ export default function MarketplacePage() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(320px, 1fr))",
           gap: "25px",
         }}
       >
@@ -177,18 +193,14 @@ export default function MarketplacePage() {
                   justifyContent: "space-between",
                 }}
               >
-                <strong>
-                  💎 {gem.gem_carat} Ct
-                </strong>
+                <strong>💎 {gem.carat} Ct</strong>
 
-                <strong>
-                  🎨 {gem.color}
-                </strong>
+                <strong>🎨 {gem.color || "N/A"}</strong>
               </div>
 
-              <p>🌍 {gem.origin_country}</p>
+              <p>🌍 {gem.origin_country || "Sri Lanka"}</p>
 
-              <p>📍 {gem.origin_region}</p>
+              <p>📍 {gem.origin_region || "-"}</p>
 
               <p
                 style={{
@@ -196,7 +208,7 @@ export default function MarketplacePage() {
                   fontWeight: "bold",
                 }}
               >
-                📜 {gem.laboratory}
+                📜 {gem.laboratory || "Certified"}
               </p>
 
               <h3
@@ -205,7 +217,7 @@ export default function MarketplacePage() {
                   fontSize: "28px",
                 }}
               >
-                USD {gem.gem_price}
+                USD {gem.price}
               </h3>
 
               <Link href={`/marketplace/${gem.id}`}>
