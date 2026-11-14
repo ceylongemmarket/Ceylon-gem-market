@@ -7,7 +7,7 @@ const inputStyle: React.CSSProperties = {
   width: "100%",
   padding: "12px",
   marginBottom: "15px",
-  border: "1px solid #ccc",
+  border: "1px solid #ddd",
   borderRadius: "8px",
 };
 
@@ -35,27 +35,94 @@ export default function GemUploadPage() {
   const [transparency, setTransparency] = useState("");
   const [stockQty, setStockQty] = useState("");
 
+  const [gemImage, setGemImage] = useState<File | null>(null);
+  const [certificateImage, setCertificateImage] = useState<File | null>(null);
+
+  const [loading, setLoading] = useState(false);
+
   const handleUpload = async () => {
     try {
+      setLoading(true);
+
+      let gemImageUrl = "";
+      let certificateImageUrl = "";
+
+      if (!gemName || !gemType || !price || !carat) {
+        alert("Please fill all required fields");
+        setLoading(false);
+        return;
+      }
+
+      if (gemImage) {
+        const fileName = `gem-${Date.now()}-${gemImage.name}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("gem-images")
+          .upload(fileName, gemImage);
+
+        if (uploadError) {
+          alert(uploadError.message);
+          setLoading(false);
+          return;
+        }
+
+        const { data } = supabase.storage
+          .from("gem-images")
+          .getPublicUrl(fileName);
+
+        gemImageUrl = data.publicUrl;
+      }
+
+      if (certificateImage) {
+        const fileName = `cert-${Date.now()}-${certificateImage.name}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("certificate-images")
+          .upload(fileName, certificateImage);
+
+        if (uploadError) {
+          alert(uploadError.message);
+          setLoading(false);
+          return;
+        }
+
+        const { data } = supabase.storage
+          .from("certificate-images")
+          .getPublicUrl(fileName);
+
+        certificateImageUrl = data.publicUrl;
+      }
+
       const { error } = await supabase.from("gems").insert([
         {
           gem_name: gemName,
           gem_type: gemType,
-          carat: Number(carat),
           price: Number(price),
-          certificate_no: certificateNo,
-          description,
+          carat: Number(carat),
+
           seller_name: sellerName,
           seller_email: sellerEmail,
+
+          description,
+
           origin_country: originCountry,
           origin_region: originRegion,
+
           treatment,
           color,
           shape,
+
           laboratory,
+          certificate_no: certificateNo,
+
           dimensions,
           transparency,
-          stock_qty: Number(stockQty),
+
+          stock_qty: Number(stockQty || 0),
+
+          gem_image: gemImageUrl,
+          certificate_image: certificateImageUrl,
+
           status: "pending",
           chairman_approved: false,
         },
@@ -63,6 +130,7 @@ export default function GemUploadPage() {
 
       if (error) {
         alert(error.message);
+        setLoading(false);
         return;
       }
 
@@ -85,9 +153,14 @@ export default function GemUploadPage() {
       setDimensions("");
       setTransparency("");
       setStockQty("");
+      setGemImage(null);
+      setCertificateImage(null);
+
+      setLoading(false);
     } catch (err) {
       console.error(err);
       alert("Something went wrong");
+      setLoading(false);
     }
   };
 
@@ -97,7 +170,7 @@ export default function GemUploadPage() {
         maxWidth: "900px",
         margin: "0 auto",
         padding: "40px",
-        fontFamily: "Arial, sans-serif",
+        fontFamily: "Arial",
       }}
     >
       <h1>Royal Ceylon Gems Upload</h1>
@@ -120,7 +193,7 @@ export default function GemUploadPage() {
 
       <input
         type="number"
-        placeholder="Price USD"
+        placeholder="Price (USD)"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
         style={inputStyle}
@@ -128,7 +201,7 @@ export default function GemUploadPage() {
 
       <input
         type="number"
-        placeholder="Carat Weight"
+        placeholder="Carat"
         value={carat}
         onChange={(e) => setCarat(e.target.value)}
         style={inputStyle}
@@ -238,49 +311,46 @@ export default function GemUploadPage() {
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         style={{
-          width: "100%",
+          ...inputStyle,
           height: "120px",
-          padding: "12px",
-          marginBottom: "15px",
-          border: "1px solid #ccc",
-          borderRadius: "8px",
         }}
       />
 
-      <label>
-        <strong>Gem Image Upload</strong>
-      </label>
+      <h3>Gem Image</h3>
 
       <input
         type="file"
         accept="image/*"
+        onChange={(e) => setGemImage(e.target.files?.[0] || null)}
         style={inputStyle}
       />
 
-      <label>
-        <strong>Certificate Image Upload</strong>
-      </label>
+      <h3>Certificate Image</h3>
 
       <input
         type="file"
         accept="image/*"
+        onChange={(e) =>
+          setCertificateImage(e.target.files?.[0] || null)
+        }
         style={inputStyle}
       />
 
       <button
         onClick={handleUpload}
+        disabled={loading}
         style={{
           width: "100%",
           padding: "15px",
           background: "#0d6efd",
-          color: "#fff",
+          color: "white",
           border: "none",
           borderRadius: "8px",
           cursor: "pointer",
           fontSize: "16px",
         }}
       >
-        Upload Gem
+        {loading ? "Uploading..." : "Upload Gem"}
       </button>
     </main>
   );
