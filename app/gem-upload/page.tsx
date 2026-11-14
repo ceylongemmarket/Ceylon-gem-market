@@ -26,12 +26,50 @@ export default function GemUploadPage() {
   const [laboratory, setLaboratory] = useState("");
   const [certificateNo, setCertificateNo] = useState("");
 
-  const [sellerName, setSellerName] = useState("");
-  const [description, setDescription] = useState("");
+const [sellerEmail, setSellerEmail] = useState("");
+const [dimensions, setDimensions] = useState("");
+const [transparency, setTransparency] = useState("");
+const [stockQty, setStockQty] = useState("");
 
-  const handleUpload = () => {
-    alert("Gem Upload Form Ready");
-  };
+  const handleUpload = async () => {
+  try {
+    const { error } = await supabase
+      .from("gems")
+      .insert([
+        {
+          gem_name: gemName,
+          gem_type: gemType,
+          carat: carat,
+          price: price,
+          certificate_no: certificateNo,
+          description: description,
+          seller_name: sellerName,
+          seller_email: sellerEmail,
+          origin_country: originCountry,
+          origin_region: originRegion,
+          treatment: treatment,
+          color: color,
+          shape: shape,
+          laboratory: laboratory,
+          dimensions: dimensions,
+          transparency: transparency,
+          stock_qty: Number(stockQty),
+          status: "pending",
+          chairman_approved: false
+        }
+      ]);
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    alert("Gem Uploaded Successfully");
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong");
+  }
+};
 
   return (
     <main
@@ -136,12 +174,13 @@ export default function GemUploadPage() {
       />
 
       <input
-        type="text"
-        placeholder="Seller Name"
-        value={sellerName}
-        onChange={(e) => setSellerName(e.target.value)}
-        style={inputStyle}
-      />
+  type="email"
+  placeholder="Seller Email"
+  value={sellerEmail}
+  onChange={(e) => setSellerEmail(e.target.value)}
+  style={inputStyle}
+/>
+       
 
       <textarea
         placeholder="Description"
