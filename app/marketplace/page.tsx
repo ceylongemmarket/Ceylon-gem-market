@@ -49,37 +49,59 @@ export default function MarketplacePage() {
       style={{
         background: "#f5f7fa",
         minHeight: "100vh",
-        padding: "30px",
+        padding: "20px",
+        maxWidth: "1600px",
+        margin: "0 auto",
       }}
     >
       <div
         style={{
-          background: "#0d3b66",
+          background:
+            "linear-gradient(135deg, #0d3b66 0%, #1b4965 50%, #2a6f97 100%)",
           color: "#ffffff",
-          padding: "50px",
-          borderRadius: "15px",
+          padding: "70px 40px",
+          borderRadius: "20px",
           textAlign: "center",
           marginBottom: "30px",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
         }}
       >
-        <h1>Royal Ceylon Gems Marketplace</h1>
+        <h1
+          style={{
+            fontSize: "48px",
+            marginBottom: "15px",
+            fontWeight: "700",
+          }}
+        >
+          💎 Royal Ceylon Gems Marketplace
+        </h1>
 
-        <p>
-          Buy Certified Natural Gemstones From Trusted Sri Lankan Sellers
+        <p
+          style={{
+            fontSize: "18px",
+            maxWidth: "850px",
+            margin: "0 auto",
+            opacity: 0.95,
+          }}
+        >
+          Discover Premium Sri Lankan Sapphires, Rubies,
+          Padparadscha and Rare Natural Gemstones with
+          International Certification.
         </p>
       </div>
 
       <input
         type="text"
-        placeholder="Search Gems..."
+        placeholder="🔍 Search Gems..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         style={{
           width: "100%",
           padding: "15px",
-          borderRadius: "10px",
+          borderRadius: "12px",
           border: "1px solid #ccc",
           marginBottom: "30px",
+          fontSize: "16px",
         }}
       />
 
@@ -87,8 +109,8 @@ export default function MarketplacePage() {
         style={{
           display: "grid",
           gridTemplateColumns:
-            "repeat(auto-fit, minmax(320px, 1fr))",
-          gap: "25px",
+            "repeat(auto-fit, minmax(260px, 1fr))",
+          gap: "20px",
         }}
       >
         {filteredGems.map((gem) => (
@@ -98,8 +120,9 @@ export default function MarketplacePage() {
               background: "#ffffff",
               borderRadius: "16px",
               overflow: "hidden",
-              border: "1px solid #eee",
-              boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+              boxShadow: "0 6px 18px rgba(0,0,0,0.08)",
+              border: "1px solid #ececec",
+              transition: "0.3s",
             }}
           >
             {gem.gem_image ? (
@@ -108,137 +131,16 @@ export default function MarketplacePage() {
                 alt={gem.gem_name}
                 style={{
                   width: "100%",
-                  height: "280px",
+                  height: "200px",
                   objectFit: "cover",
                 }}
               />
             ) : (
               <div
                 style={{
-                  height: "280px",
-                  background: "#ededed",
+                  height: "200px",
+                  background: "#eeeeee",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                }}
-              >
-                No Image
-              </div>
-            )}
-
-            <div style={{ padding: "16px" }}>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "8px",
-                  flexWrap: "wrap",
-                  marginBottom: "10px",
-                }}
-              >
-                <span
-                  style={{
-                    background: "#e8f5e9",
-                    color: "#2e7d32",
-                    padding: "4px 8px",
-                    borderRadius: "20px",
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  ✓ Verified Seller
-                </span>
-
-                <span
-                  style={{
-                    background:
-                      gem.treatment === "Unheated"
-                        ? "#e3f2fd"
-                        : "#fff3e0",
-                    color:
-                      gem.treatment === "Unheated"
-                        ? "#1565c0"
-                        : "#ef6c00",
-                    padding: "4px 8px",
-                    borderRadius: "20px",
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {gem.treatment === "Unheated"
-                    ? "✅ Unheated"
-                    : "🔥 Heated"}
-                </span>
-
-                <span
-                  style={{
-                    background: "#f3e5f5",
-                    color: "#6a1b9a",
-                    padding: "4px 8px",
-                    borderRadius: "20px",
-                    fontSize: "12px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  📜 Certified
-                </span>
-              </div>
-
-              <h2>{gem.gem_name}</h2>
-
-              <p>{gem.gem_type}</p>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <strong>💎 {gem.carat} Ct</strong>
-
-                <strong>🎨 {gem.color || "N/A"}</strong>
-              </div>
-
-              <p>🌍 {gem.origin_country || "Sri Lanka"}</p>
-
-              <p>📍 {gem.origin_region || "-"}</p>
-
-              <p
-                style={{
-                  color: "#2e7d32",
-                  fontWeight: "bold",
-                }}
-              >
-                📜 {gem.laboratory || "Certified"}
-              </p>
-
-              <h3
-                style={{
-                  color: "#d32f2f",
-                  fontSize: "28px",
-                }}
-              >
-                USD {gem.price}
-              </h3>
-
-              <Link href={`/marketplace/${gem.id}`}>
-                <button
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    background: "#0d6efd",
-                    color: "#ffffff",
-                    border: "none",
-                    borderRadius: "10px",
-                    cursor: "pointer",
-                  }}
-                >
-                  View Details
-                </button>
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-    </main>
-  );
-}
+                  fontWeight
