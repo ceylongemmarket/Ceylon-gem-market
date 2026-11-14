@@ -29,24 +29,34 @@ export default function GemDetailsPage() {
   const params = useParams();
   const [gem, setGem] = useState<Gem | null>(null);
   const [loading, setLoading] = useState(true);
-
+  const [similarGems, setSimilarGems] = useState<any[]>([]);
+  
   useEffect(() => {
     loadGem();
   }, []);
 
   const loadGem = async () => {
-    const { data, error } = await supabase
+  const { data, error } = await supabase
+    .from("gems")
+    .select("*")
+    .eq("id", params.id)
+    .single();
+
+  if (!error && data) {
+    setGem(data);
+
+    const { data: similar } = await supabase
       .from("gems")
       .select("*")
-      .eq("id", params.id)
-      .single();
+      .eq("gem_type", data.gem_type)
+      .neq("id", data.id)
+      .limit(4);
 
-    if (!error && data) {
-      setGem(data);
-    }
+    setSimilarGems(similar || []);
+  }
 
-    setLoading(false);
-  };
+  setLoading(false);
+};
 
   if (loading) {
     return (
@@ -253,12 +263,16 @@ export default function GemDetailsPage() {
             <h3>Seller Information</h3>
 
             <p>
-              <strong>Name:</strong> {gem.seller_name}
-            </p>
+  ✅ Verified Seller
+</p>
 
-            <p>
-              <strong>Email:</strong> {gem.seller_email}
-            </p>
+<p>
+  Seller contact details are protected.
+</p>
+
+<p>
+  Use the inquiry system to contact the seller.
+</p>
 
             <button
               style={{
@@ -273,11 +287,73 @@ export default function GemDetailsPage() {
                 fontWeight: "bold",
               }}
             >
-              Contact Seller
+              Send Inquiry
             </button>
           </div>
         </div>
       </div>
+      {similarGems.length > 0 && (
+  <div
+    style={{
+      maxWidth: "1400px",
+      margin: "40px auto",
+    }}
+  >
+    <h2>💎 Similar Gemstones</h2>
+
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns:
+          "repeat(auto-fit,minmax(250px,1fr))",
+        gap: "20px",
+      }}
+    >
+      {similarGems.map((item) => (
+        <a
+          key={item.id}
+          href={`/marketplace/${item.id}`}
+          style={{
+            textDecoration: "none",
+            color: "inherit",
+          }}
+        >
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: "15px",
+              overflow: "hidden",
+              boxShadow:
+                "0 5px 15px rgba(0,0,0,0.08)",
+            }}
+          >
+            {item.gem_image && (
+              <img
+                src={item.gem_image}
+                alt={item.gem_name}
+                style={{
+                  width: "100%",
+                  height: "180px",
+                  objectFit: "cover",
+                }}
+              />
+            )}
+
+            <div style={{ padding: "15px" }}>
+              <h3>{item.gem_name}</h3>
+
+              <p>{item.gem_type}</p>
+
+              <p>💎 {item.carat} Ct</p>
+
+              <strong>USD {item.price}</strong>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+)}
     </main>
   );
 }
