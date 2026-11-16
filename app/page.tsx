@@ -73,34 +73,43 @@ export default function Home() {
         </h2>
 
         <div
-          style={{
-            display: "flex",
-            gap: "20px",
-            flexWrap: "wrap",
-          }}
-        >
-          <a
-            href="/marketplace"
-            style={{ color: "#fff", textDecoration: "none" }}
-          >
-            Marketplace
-          </a>
+  style={{
+    display: "flex",
+    gap: "20px",
+    flexWrap: "wrap",
+  }}
+>
+  <a href="/" style={{ color: "#fff", textDecoration: "none" }}>
+    Home
+  </a>
 
-          <a
-            href="/register"
-            style={{ color: "#fff", textDecoration: "none" }}
-          >
-            Sell Gems
-          </a>
+  <a href="/marketplace" style={{ color: "#fff", textDecoration: "none" }}>
+    Marketplace
+  </a>
 
-          <a
-            href="/login"
-            style={{ color: "#fff", textDecoration: "none" }}
-          >
-            Login
-          </a>
-        </div>
-      </nav>
+  <a href="/knowledge" style={{ color: "#fff", textDecoration: "none" }}>
+    Knowledge
+  </a>
+
+  <a href="/auctions" style={{ color: "#fff", textDecoration: "none" }}>
+    Auctions
+  </a>
+
+  <a href="/services" style={{ color: "#fff", textDecoration: "none" }}>
+    Services
+  </a>
+
+  <a href="/about" style={{ color: "#fff", textDecoration: "none" }}>
+    About
+  </a>
+
+  <a href="/contact" style={{ color: "#fff", textDecoration: "none" }}>
+    Contact
+  </a>
+          
+  </div>
+
+  </nav>
 
       {/* Banner */}
       <section
