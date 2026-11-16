@@ -27,36 +27,40 @@ interface Gem {
 
 export default function GemDetailsPage() {
   const params = useParams();
+
   const [gem, setGem] = useState<Gem | null>(null);
   const [loading, setLoading] = useState(true);
   const [similarGems, setSimilarGems] = useState<any[]>([]);
-  
+
   useEffect(() => {
     loadGem();
   }, []);
 
   const loadGem = async () => {
-  const { data, error } = await supabase
-    .from("gems")
-    .select("*")
-    .eq("id", params.id)
-    .single();
+    const gemId = Number(params.id);
 
-  if (!error && data) {
-    setGem(data);
-
-    const { data: similar } = await supabase
+    const { data, error } = await supabase
       .from("gems")
       .select("*")
-      .eq("gem_type", data.gem_type)
-      .neq("id", data.id)
-      .limit(4);
+      .eq("id", gemId)
+      .single();
 
-    setSimilarGems(similar || []);
-  }
+    if (!error && data) {
+      setGem(data);
 
-  setLoading(false);
-};
+      const { data: similar } = await supabase
+        .from("gems")
+        .select("*")
+        .eq("gem_type", data.gem_type)
+        .neq("id", data.id)
+        .order("id", { ascending: false })
+        .limit(4);
+
+      setSimilarGems(similar || []);
+    }
+
+    setLoading(false);
+  };
 
   if (loading) {
     return (
@@ -195,52 +199,72 @@ export default function GemDetailsPage() {
             >
               <tbody>
                 <tr>
-                  <td><strong>Gem Type</strong></td>
+                  <td>
+                    <strong>Gem Type</strong>
+                  </td>
                   <td>{gem.gem_type}</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Carat</strong></td>
+                  <td>
+                    <strong>Carat</strong>
+                  </td>
                   <td>{gem.carat} Ct</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Color</strong></td>
+                  <td>
+                    <strong>Color</strong>
+                  </td>
                   <td>{gem.color || "N/A"}</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Treatment</strong></td>
+                  <td>
+                    <strong>Treatment</strong>
+                  </td>
                   <td>{gem.treatment || "-"}</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Country</strong></td>
+                  <td>
+                    <strong>Country</strong>
+                  </td>
                   <td>{gem.origin_country || "Sri Lanka"}</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Region</strong></td>
+                  <td>
+                    <strong>Region</strong>
+                  </td>
                   <td>{gem.origin_region || "-"}</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Laboratory</strong></td>
+                  <td>
+                    <strong>Laboratory</strong>
+                  </td>
                   <td>{gem.laboratory || "-"}</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Certificate No</strong></td>
+                  <td>
+                    <strong>Certificate No</strong>
+                  </td>
                   <td>{gem.certificate_no || "-"}</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Dimensions</strong></td>
+                  <td>
+                    <strong>Dimensions</strong>
+                  </td>
                   <td>{gem.dimensions || "-"}</td>
                 </tr>
 
                 <tr>
-                  <td><strong>Transparency</strong></td>
+                  <td>
+                    <strong>Transparency</strong>
+                  </td>
                   <td>{gem.transparency || "-"}</td>
                 </tr>
               </tbody>
@@ -262,19 +286,18 @@ export default function GemDetailsPage() {
 
             <h3>Seller Information</h3>
 
+            <p>✅ Verified Seller</p>
+
+            <p>Seller contact details are protected.</p>
+
             <p>
-  ✅ Verified Seller
-</p>
-
-<p>
-  Seller contact details are protected.
-</p>
-
-<p>
-  Use the inquiry system to contact the seller.
-</p>
+              Use the inquiry system to contact the seller.
+            </p>
 
             <button
+              onClick={() => {
+                window.location.href = `/inquiry/${gem.id}`;
+              }}
               style={{
                 width: "100%",
                 marginTop: "20px",
@@ -292,68 +315,71 @@ export default function GemDetailsPage() {
           </div>
         </div>
       </div>
-      {similarGems.length > 0 && (
-  <div
-    style={{
-      maxWidth: "1400px",
-      margin: "40px auto",
-    }}
-  >
-    <h2>💎 Similar Gemstones</h2>
 
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns:
-          "repeat(auto-fit,minmax(250px,1fr))",
-        gap: "20px",
-      }}
-    >
-      {similarGems.map((item) => (
-        <a
-          key={item.id}
-          href={`/marketplace/${item.id}`}
+      {similarGems.length > 0 && (
+        <div
           style={{
-            textDecoration: "none",
-            color: "inherit",
+            maxWidth: "1400px",
+            margin: "40px auto",
           }}
         >
+          <h2>💎 Similar Gemstones</h2>
+
           <div
             style={{
-              background: "#fff",
-              borderRadius: "15px",
-              overflow: "hidden",
-              boxShadow:
-                "0 5px 15px rgba(0,0,0,0.08)",
+              display: "grid",
+              gridTemplateColumns:
+                "repeat(auto-fit,minmax(250px,1fr))",
+              gap: "20px",
             }}
           >
-            {item.gem_image && (
-              <img
-                src={item.gem_image}
-                alt={item.gem_name}
+            {similarGems.map((item) => (
+              <a
+                key={item.id}
+                href={`/marketplace/${item.id}`}
                 style={{
-                  width: "100%",
-                  height: "180px",
-                  objectFit: "cover",
+                  textDecoration: "none",
+                  color: "inherit",
                 }}
-              />
-            )}
+              >
+                <div
+                  style={{
+                    background: "#fff",
+                    borderRadius: "15px",
+                    overflow: "hidden",
+                    boxShadow:
+                      "0 5px 15px rgba(0,0,0,0.08)",
+                  }}
+                >
+                  {item.gem_image && (
+                    <img
+                      src={item.gem_image}
+                      alt={item.gem_name}
+                      style={{
+                        width: "100%",
+                        height: "180px",
+                        objectFit: "cover",
+                      }}
+                    />
+                  )}
 
-            <div style={{ padding: "15px" }}>
-              <h3>{item.gem_name}</h3>
+                  <div style={{ padding: "15px" }}>
+                    <h3>{item.gem_name}</h3>
 
-              <p>{item.gem_type}</p>
+                    <p>{item.gem_type}</p>
 
-              <p>💎 {item.carat} Ct</p>
+                    <p>💎 {item.carat} Ct</p>
 
-              <strong>USD {item.price}</strong>
-            </div>
+                    <strong>
+                      USD {item.price}
+                    </strong>
+                  </div>
+                </div>
+              </a>
+            ))}
           </div>
-        </a>
-      ))}
-    </div>
-  </div>
-)}
+        </div>
+      )}
     </main>
   );
 }
