@@ -547,11 +547,6 @@ export default function Home() {
             Login
           </a>
 
-          <a href="/chairman" style={{ color: "#fff" }}>
-            Chairman
-          </a>
-        </div>
-
         <p
           style={{
             marginTop: "30px",
