@@ -99,17 +99,10 @@ export default function Home() {
           >
             Login
           </a>
-
-          <a
-            href="/chairman"
-            style={{ color: "#fff", textDecoration: "none" }}
-          >
-            Chairman
-          </a>
         </div>
       </nav>
 
-      {/* Chairman Approved Banner */}
+      {/* Banner */}
       <section
         style={{
           background: "#D4AF37",
@@ -222,9 +215,7 @@ export default function Home() {
               border: "1px solid #D4AF37",
             }}
           >
-            <h2 style={{ color: "#D4AF37" }}>
-              {totalGems}
-            </h2>
+            <h2 style={{ color: "#D4AF37" }}>{totalGems}</h2>
             <p>Listed Gemstones</p>
           </div>
 
@@ -237,9 +228,7 @@ export default function Home() {
               border: "1px solid #D4AF37",
             }}
           >
-            <h2 style={{ color: "#D4AF37" }}>
-              Verified
-            </h2>
+            <h2 style={{ color: "#D4AF37" }}>Verified</h2>
             <p>Chairman Approved Listings</p>
           </div>
 
@@ -252,9 +241,7 @@ export default function Home() {
               border: "1px solid #D4AF37",
             }}
           >
-            <h2 style={{ color: "#D4AF37" }}>
-              Global
-            </h2>
+            <h2 style={{ color: "#D4AF37" }}>Global</h2>
             <p>International Trading</p>
           </div>
 
@@ -267,9 +254,7 @@ export default function Home() {
               border: "1px solid #D4AF37",
             }}
           >
-            <h2 style={{ color: "#D4AF37" }}>
-              Secure
-            </h2>
+            <h2 style={{ color: "#D4AF37" }}>Secure</h2>
             <p>Inquiry System</p>
           </div>
         </div>
@@ -332,28 +317,16 @@ export default function Home() {
                   }}
                 />
 
-                <div
-                  style={{
-                    padding: "20px",
-                  }}
-                >
+                <div style={{ padding: "20px" }}>
                   <h3>{gem.gem_name}</h3>
 
                   <p>{gem.gem_type}</p>
 
-                  <p>
-                    💎 {gem.carat} Ct
-                  </p>
+                  <p>💎 {gem.carat} Ct</p>
 
-                  <p>
-                    Seller: {gem.seller_name}
-                  </p>
+                  <p>Seller: {gem.seller_name}</p>
 
-                  <h3
-                    style={{
-                      color: "#D4AF37",
-                    }}
-                  >
+                  <h3 style={{ color: "#D4AF37" }}>
                     USD {gem.price}
                   </h3>
                 </div>
@@ -546,16 +519,17 @@ export default function Home() {
           <a href="/login" style={{ color: "#fff" }}>
             Login
           </a>
+        </div>
 
-<p
-  style={{
-    marginTop: "30px",
-    color: "#6B7280",
-  }}
->
-  © 2026 Royal Ceylon Gems. All Rights Reserved.
-</p>          
-</footer>
-</main>
-);
+        <p
+          style={{
+            marginTop: "30px",
+            color: "#6B7280",
+          }}
+        >
+          © 2026 Royal Ceylon Gems. All Rights Reserved.
+        </p>
+      </footer>
+    </main>
+  );
 }
