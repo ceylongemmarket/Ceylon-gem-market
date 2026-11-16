@@ -547,15 +547,33 @@ export default function Home() {
             Login
           </a>
 
-        <p
-          style={{
-            marginTop: "30px",
-            color: "#6B7280",
-          }}
-        >
-          © 2026 Royal Ceylon Gems. All Rights Reserved.
-        </p>
-      </footer>
-    </main>
-  );
-}
+ <div
+  style={{
+    marginTop: "25px",
+    display: "flex",
+    justifyContent: "center",
+    gap: "20px",
+    flexWrap: "wrap",
+  }}
+>
+  <a href="/marketplace" style={{ color: "#fff" }}>
+    Marketplace
+  </a>
+
+  <a href="/register" style={{ color: "#fff" }}>
+    Sell Gems
+  </a>
+
+  <a href="/login" style={{ color: "#fff" }}>
+    Login
+  </a>
+</div>
+
+<p
+  style={{
+    marginTop: "30px",
+    color: "#6B7280",
+  }}
+>
+  © 2026 Royal Ceylon Gems. All Rights Reserved.
+</p>          
