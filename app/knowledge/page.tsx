@@ -1,41 +1,43 @@
+import Link from "next/link";
+
 export default function KnowledgePage() {
   const articles = [
+{
+  title: "What Is Sapphire?",
+  description: "...",
+  icon: "💎",
+  link: "/knowledge/sapphire",
+},
     {
-      title: "What Is Sapphire?",
-      description:
-        "Learn about natural sapphires, colors, origins, quality factors, and investment value.",
-      icon: "💎",
-    },
+  title: "Ruby Buying Guide",
+  description: "...",
+  icon: "❤️",
+  link: "/knowledge/ruby",
+},
     {
-      title: "Ruby Buying Guide",
-      description:
-        "Understand ruby quality, treatments, certification requirements, and pricing.",
-      icon: "❤️",
-    },
-    {
-      title: "Gem Certification Guide",
-      description:
-        "Learn the importance of GRS, GIA, SSEF, Lotus and other gem laboratories.",
-      icon: "📜",
-    },
-    {
-      title: "Investment Grade Gemstones",
-      description:
-        "Discover how gemstones are evaluated as long-term investment assets.",
-      icon: "📈",
-    },
-    {
-      title: "Gem Treatments Explained",
-      description:
-        "Learn the difference between heated, unheated and treated gemstones.",
-      icon: "🔥",
-    },
-    {
-      title: "Sri Lankan Gem Industry",
-      description:
-        "Explore the history and global importance of Sri Lankan gemstones.",
-      icon: "🌍",
-    },
+  title: "Gem Certification Guide",
+  description: "...",
+  icon: "📜",
+  link: "/knowledge/certification",
+},
+{
+  title: "Investment Grade Gemstones",
+  description: "...",
+  icon: "📈",
+  link: "/knowledge/investment",
+},
+{
+  title: "Gem Treatments Explained",
+  description: "...",
+  icon: "🔥",
+  link: "/knowledge/treatments",
+},
+{
+  title: "Sri Lankan Gem Industry",
+  description: "...",
+  icon: "🌍",
+  link: "/knowledge/sri-lanka-gems",
+},
   ];
 
   return (
@@ -125,20 +127,22 @@ export default function KnowledgePage() {
               {article.description}
             </p>
 
-            <button
-              style={{
-                marginTop: "20px",
-                background: "#D4AF37",
-                color: "#000",
-                border: "none",
-                padding: "12px 20px",
-                borderRadius: "10px",
-                fontWeight: "bold",
-                cursor: "pointer",
-              }}
-            >
-              Read More
-            </button>
+            <Link href={article.link}>
+  <button
+    style={{
+      marginTop: "20px",
+      background: "#D4AF37",
+      color: "#000",
+      border: "none",
+      padding: "12px 20px",
+      borderRadius: "10px",
+      fontWeight: "bold",
+      cursor: "pointer",
+    }}
+  >
+    Read More
+  </button>
+</Link>
           </div>
         ))}
       </section>
