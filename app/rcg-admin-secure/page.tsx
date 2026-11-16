@@ -33,7 +33,8 @@ export default function ChairmanDashboard() {
         </h2>
 
         <p>
-          Manage sellers, gemstones, auctions, revenue and platform settings.
+          Manage sellers, gemstones, auctions, revenue and platform
+          settings.
         </p>
       </div>
 
@@ -51,15 +52,57 @@ export default function ChairmanDashboard() {
           💰 Financial Settings
         </h2>
 
-        <p>Broker Commission : 5%</p>
+        <div style={{ marginTop: "20px" }}>
+          <label>Broker Commission (%)</label>
+          <input
+            type="number"
+            defaultValue="5"
+            style={inputStyle}
+          />
 
-        <p>Seller Registration Fee : $50</p>
+          <label>Seller Registration Fee ($)</label>
+          <input
+            type="number"
+            defaultValue="50"
+            style={inputStyle}
+          />
 
-        <p>Auction Commission : 10%</p>
+          <label>Auction Commission (%)</label>
+          <input
+            type="number"
+            defaultValue="10"
+            style={inputStyle}
+          />
 
-        <p>Certification Fee : $25</p>
+          <label>Certification Fee ($)</label>
+          <input
+            type="number"
+            defaultValue="25"
+            style={inputStyle}
+          />
 
-        <p>Featured Listing Fee : $15</p>
+          <label>Featured Listing Fee ($)</label>
+          <input
+            type="number"
+            defaultValue="15"
+            style={inputStyle}
+          />
+
+          <button
+            style={{
+              background: "#D4AF37",
+              color: "#000",
+              border: "none",
+              padding: "12px 25px",
+              borderRadius: "10px",
+              fontWeight: "bold",
+              cursor: "pointer",
+              marginTop: "10px",
+            }}
+          >
+            Save Financial Settings
+          </button>
+        </div>
       </div>
 
       {/* Revenue Center */}
@@ -76,13 +119,19 @@ export default function ChairmanDashboard() {
           📈 Revenue Center
         </h2>
 
-        <p>Broker Commission Income : $0</p>
+        <p>💰 Broker Commission Income : $0</p>
 
-        <p>Registration Income : $0</p>
+        <p>📝 Registration Income : $0</p>
 
-        <p>Auction Income : $0</p>
+        <p>🔨 Auction Income : $0</p>
 
-        <p>Total Revenue : $0</p>
+        <p>📜 Certification Income : $0</p>
+
+        <p>⭐ Featured Listing Income : $0</p>
+
+        <h3 style={{ color: "#D4AF37" }}>
+          Total Revenue : $0
+        </h3>
       </div>
 
       {/* Seller Management */}
@@ -149,9 +198,9 @@ export default function ChairmanDashboard() {
 
         <p>Approve Auction Entries</p>
 
-        <p>Auction Revenue Monitoring</p>
-
         <p>Manage Active Auctions</p>
+
+        <p>Monitor Auction Revenue</p>
       </div>
 
       {/* Chairman Messages */}
@@ -168,9 +217,32 @@ export default function ChairmanDashboard() {
           📢 Chairman Messages
         </h2>
 
-        <p>
-          Send announcements to buyers, sellers and auction participants.
-        </p>
+        <textarea
+          placeholder="Type announcement here..."
+          style={{
+            width: "100%",
+            height: "120px",
+            background: "#1F2937",
+            color: "#ffffff",
+            border: "1px solid #374151",
+            borderRadius: "10px",
+            padding: "12px",
+          }}
+        />
+
+        <button
+          style={{
+            marginTop: "15px",
+            background: "#D4AF37",
+            color: "#000",
+            border: "none",
+            padding: "12px 20px",
+            borderRadius: "10px",
+            fontWeight: "bold",
+          }}
+        >
+          Publish Message
+        </button>
       </div>
 
       {/* Public Meetings */}
@@ -186,22 +258,25 @@ export default function ChairmanDashboard() {
           🎤 Public Chairman Meetings
         </h2>
 
-        <p>
-          Sri Lanka Gem Market Outlook 2027
-        </p>
+        <p>Sri Lanka Gem Market Outlook 2027</p>
 
-        <p>
-          Date : 15 December 2026
-        </p>
+        <p>Date : 15 December 2026</p>
 
-        <p>
-          Time : 7.00 PM
-        </p>
+        <p>Time : 7.00 PM</p>
 
-        <p>
-          Mode : Online Meeting
-        </p>
+        <p>Mode : Online Meeting</p>
       </div>
     </main>
   );
 }
+
+const inputStyle = {
+  width: "100%",
+  padding: "12px",
+  marginTop: "5px",
+  marginBottom: "15px",
+  borderRadius: "10px",
+  border: "1px solid #374151",
+  background: "#1F2937",
+  color: "#ffffff",
+} as const;
