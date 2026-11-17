@@ -41,7 +41,6 @@ useEffect(() => {
 const loadSettings = async () => {
   console.log("LOAD SETTINGS RUNNING");
 
-  const loadSettings = async () => {
   const { data, error } = await supabase
     .from("site_settings")
     .select("*")
