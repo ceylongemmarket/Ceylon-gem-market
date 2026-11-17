@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 
 const cardStyle = {
   background: "#111827",
@@ -33,7 +34,41 @@ export default function ChairmanDashboard() {
   const [supportEmail, setSupportEmail] = useState(
     "support@royalceylongems.com"
   );
+useEffect(() => {
+  loadSettings();
+}, []);
 
+const loadSettings = async () => {
+  const { data } = await supabase
+    .from("site_settings")
+    .select("*")
+    .eq("id", 1)
+    .single();
+
+  if (data) {
+    setSupportEmail(data.support_email || "");
+    setPriorityFee(data.priority_whatsapp_fee || 3);
+    setConsultationFee(data.consultation_fee || 15);
+  }
+};
+
+const savePlatformSettings = async () => {
+  const { error } = await supabase
+    .from("site_settings")
+    .update({
+      support_email: supportEmail,
+      priority_whatsapp_fee: priorityFee,
+      consultation_fee: consultationFee,
+    })
+    .eq("id", 1);
+
+  if (error) {
+    alert("Save Failed");
+    return;
+  }
+
+  alert("Platform Settings Saved ✅");
+};
   return (
     <main
       style={{
@@ -325,21 +360,19 @@ export default function ChairmanDashboard() {
         />
 
         <button
-          onClick={() =>
-            alert("Platform Settings Saved")
-          }
-          style={{
-            background: "#D4AF37",
-            color: "#000",
-            border: "none",
-            padding: "12px 25px",
-            borderRadius: "10px",
-            fontWeight: "bold",
-            cursor: "pointer",
-          }}
-        >
-          Save Platform Settings
-        </button>
+  onClick={savePlatformSettings}
+  style={{
+    background: "#D4AF37",
+    color: "#000",
+    border: "none",
+    padding: "12px 25px",
+    borderRadius: "10px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  }}
+>
+  Save Platform Settings
+</button>
       </div>
 
       {/* Meeting Section */}
