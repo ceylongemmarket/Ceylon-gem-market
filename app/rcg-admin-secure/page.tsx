@@ -41,12 +41,12 @@ useEffect(() => {
 const loadSettings = async () => {
   console.log("LOAD SETTINGS RUNNING");
 
+  const loadSettings = async () => {
   const { data, error } = await supabase
     .from("site_settings")
     .select("*")
-    .eq("id", 1)
     .limit(1)
-    .maybeSingle();
+    .single();
 
   console.log("SETTINGS DATA:", data);
   console.log("SETTINGS ERROR:", error);
