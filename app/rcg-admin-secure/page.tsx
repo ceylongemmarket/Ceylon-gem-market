@@ -29,8 +29,8 @@ export default function ChairmanDashboard() {
   const [featuredFee, setFeaturedFee] = useState(15);
 
   const [whatsappNumber, setWhatsappNumber] = useState("94771234567");
-  const [priorityFee, setPriorityFee] = useState(3);
-  const [consultationFee, setConsultationFee] = useState(15);
+  const [priorityFee, setPriorityFee] = useState(999);
+  const [consultationFee, setConsultationFee] = useState(999);
   const [supportEmail, setSupportEmail] = useState(
     "support@royalceylongems.com"
   );
@@ -45,6 +45,7 @@ const loadSettings = async () => {
     .from("site_settings")
     .select("*")
     .eq("id", 1)
+    .limit(1)
     .maybeSingle();
 
   console.log("SETTINGS DATA:", data);
