@@ -27,6 +27,13 @@ export default function ChairmanDashboard() {
   const [certificationFee, setCertificationFee] = useState(25);
   const [featuredFee, setFeaturedFee] = useState(15);
 
+  const [whatsappNumber, setWhatsappNumber] = useState("94771234567");
+  const [priorityFee, setPriorityFee] = useState(3);
+  const [consultationFee, setConsultationFee] = useState(15);
+  const [supportEmail, setSupportEmail] = useState(
+    "support@royalceylongems.com"
+  );
+
   return (
     <main
       style={{
@@ -174,9 +181,11 @@ export default function ChairmanDashboard() {
         <p>🔨 Auction Income : $5,400</p>
         <p>📜 Certificate Income : $875</p>
         <p>⭐ Featured Income : $725</p>
+        <p>📱 Priority WhatsApp Income : $320</p>
+        <p>💎 Consultation Income : $650</p>
 
         <h3 style={{ color: "#D4AF37" }}>
-          Total Revenue : $12,450
+          Total Revenue : $13,420
         </h3>
       </div>
 
@@ -261,6 +270,75 @@ export default function ChairmanDashboard() {
           }}
         >
           Publish Announcement
+        </button>
+      </div>
+
+      {/* Platform Settings */}
+      <div
+        style={{
+          ...cardStyle,
+          marginBottom: "30px",
+        }}
+      >
+        <h2 style={{ color: "#D4AF37" }}>
+          📱 Platform Settings
+        </h2>
+
+        <label>WhatsApp Number</label>
+        <input
+          type="text"
+          value={whatsappNumber}
+          onChange={(e) =>
+            setWhatsappNumber(e.target.value)
+          }
+          style={inputStyle}
+        />
+
+        <label>Priority WhatsApp Fee ($)</label>
+        <input
+          type="number"
+          value={priorityFee}
+          onChange={(e) =>
+            setPriorityFee(Number(e.target.value))
+          }
+          style={inputStyle}
+        />
+
+        <label>Premium Consultation Fee ($)</label>
+        <input
+          type="number"
+          value={consultationFee}
+          onChange={(e) =>
+            setConsultationFee(Number(e.target.value))
+          }
+          style={inputStyle}
+        />
+
+        <label>Support Email</label>
+        <input
+          type="email"
+          value={supportEmail}
+          onChange={(e) =>
+            setSupportEmail(e.target.value)
+          }
+          style={inputStyle}
+        />
+
+        <button
+          onClick={() =>
+            alert("Platform Settings Saved")
+          }
+          style={{
+            background: "#D4AF37",
+            color: "#000",
+            border: "none",
+            padding: "12px 25px",
+            borderRadius: "10px",
+            fontWeight: "bold",
+            cursor: "pointer",
+          }}
+        >
+          Save Platform Settings
         </button>
       </div>
 
