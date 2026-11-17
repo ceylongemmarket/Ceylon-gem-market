@@ -39,22 +39,29 @@ useEffect(() => {
 }, []);
 
 const loadSettings = async () => {
+  console.log("LOAD SETTINGS RUNNING");
+
   const { data, error } = await supabase
-  .from("site_settings")
-  .select("*")
-  .eq("id", 1)
-  .single();
+    .from("site_settings")
+    .select("*")
+    .eq("id", 1)
+    .maybeSingle();
 
-console.log("SETTINGS DATA:", data);
-console.log("SETTINGS ERROR:", error);
+  console.log("SETTINGS DATA:", data);
+  console.log("SETTINGS ERROR:", error);
 
-if (data) {
-  setWhatsappNumber(data.whatsapp_number || "");
-  setSupportEmail(data.support_email || "");
-  setPriorityFee(Number(data.priority_whatsapp_fee) || 3);
-  setConsultationFee(Number(data.consultation_fee) || 15);
-}
-  }; 
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  if (data) {
+    setWhatsappNumber(data.whatsapp_number || "");
+    setSupportEmail(data.support_email || "");
+    setPriorityFee(Number(data.priority_whatsapp_fee));
+    setConsultationFee(Number(data.consultation_fee));
+  }
+};
 
 const savePlatformSettings = async () => {
   const { error } = await supabase
