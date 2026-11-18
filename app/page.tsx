@@ -331,6 +331,74 @@ export default function Home() {
     ))}
   </div>
 </section>
+
+{/* Live Auctions */}
+
+<section
+  style={{
+    padding: "80px 20px",
+    background: "#111827",
+  }}
+>
+  <h2
+    style={{
+      textAlign: "center",
+      color: "#D4AF37",
+      marginBottom: "40px",
+    }}
+  >
+    🔥 Live Auctions
+  </h2>
+
+  <div
+    style={{
+      maxWidth: "1200px",
+      margin: "0 auto",
+      display: "grid",
+      gridTemplateColumns:
+        "repeat(auto-fit,minmax(250px,1fr))",
+      gap: "20px",
+    }}
+  >
+    {[
+      {
+        gem: "Blue Sapphire",
+        bid: "$2,500",
+      },
+      {
+        gem: "Natural Ruby",
+        bid: "$4,200",
+      },
+      {
+        gem: "Padparadscha",
+        bid: "$6,800",
+      },
+    ].map((item) => (
+      <div
+        key={item.gem}
+        style={{
+          background: "#1F2937",
+          padding: "25px",
+          borderRadius: "15px",
+          border: "1px solid #D4AF37",
+        }}
+      >
+        <h3>{item.gem}</h3>
+
+        <p style={{ color: "#10B981" }}>
+          Current Bid
+        </p>
+
+        <h2 style={{ color: "#D4AF37" }}>
+          {item.bid}
+        </h2>
+      </div>
+    ))}
+  </div>
+</section>
+
+{/* Categories */}
+      
       {/* Categories */}
       <section
         style={{
@@ -374,6 +442,130 @@ export default function Home() {
           ))}
         </div>
       </section>
+      {/* Why Global Buyers Choose Us */}
+
+<section
+  style={{
+    padding: "80px 20px",
+    background: "#111827",
+  }}
+>
+  <h2
+    style={{
+      textAlign: "center",
+      color: "#D4AF37",
+      marginBottom: "40px",
+    }}
+  >
+    Why Global Buyers Choose Us
+  </h2>
+
+  <div
+    style={{
+      maxWidth: "1200px",
+      margin: "0 auto",
+      display: "grid",
+      gridTemplateColumns:
+        "repeat(auto-fit,minmax(250px,1fr))",
+      gap: "20px",
+    }}
+  >
+    {[
+      "Verified Sellers",
+      "Chairman Approved Listings",
+      "Live Auctions",
+      "Escrow Protection",
+      "International Buyers",
+      "Certified Gemstones",
+    ].map((item) => (
+      <div
+        key={item}
+        style={{
+          background: "#1F2937",
+          padding: "25px",
+          borderRadius: "15px",
+          border: "1px solid #D4AF37",
+          textAlign: "center",
+        }}
+      >
+        ✅ {item}
+      </div>
+    ))}
+  </div>
+</section>
+      {/* Call To Action */}
+
+<section
+  style={{
+    padding: "100px 20px",
+    textAlign: "center",
+    background: "#0f172a",
+  }}
+>
+  <h2
+    style={{
+      color: "#D4AF37",
+      fontSize: "clamp(32px,5vw,50px)",
+      marginBottom: "20px",
+    }}
+  >
+    Start Trading Luxury Gemstones Today
+  </h2>
+
+  <p
+    style={{
+      maxWidth: "700px",
+      margin: "0 auto",
+      color: "#d1d5db",
+      lineHeight: "1.8",
+    }}
+  >
+    Join verified sellers, international buyers and
+    exclusive gemstone auctions on Royal Ceylon Gems.
+  </p>
+
+  <div
+    style={{
+      marginTop: "30px",
+      display: "flex",
+      justifyContent: "center",
+      gap: "15px",
+      flexWrap: "wrap",
+    }}
+  >
+    <a href="/marketplace">
+      <button
+        style={{
+          background: "#D4AF37",
+          color: "#000",
+          border: "none",
+          padding: "15px 30px",
+          borderRadius: "10px",
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
+      >
+        Explore Marketplace
+      </button>
+    </a>
+
+    <a href="/seller-register">
+      <button
+        style={{
+          background: "#10B981",
+          color: "#fff",
+          border: "none",
+          padding: "15px 30px",
+          borderRadius: "10px",
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
+      >
+        Become a Seller
+      </button>
+    </a>
+  </div>
+</section>
 
       {/* Footer */}
       <footer
@@ -391,15 +583,31 @@ export default function Home() {
         <p style={{ color: "#9CA3AF" }}>
           Global Marketplace for Certified Gemstones
         </p>
+         <div
+  style={{
+    marginTop: "20px",
+    display: "flex",
+    justifyContent: "center",
+    gap: "20px",
+    flexWrap: "wrap",
+    color: "#D4AF37",
+    fontWeight: "bold",
+  }}
+>
+  <span>Verified Sellers</span>
+  <span>Live Auctions</span>
+  <span>Escrow Protection</span>
+  <span>Global Trading</span>
+</div>
 
-        <p
-          style={{
-            marginTop: "30px",
-            color: "#6B7280",
-          }}
-        >
-          © 2026 Royal Ceylon Gems. All Rights Reserved.
-        </p>
+<p
+  style={{
+    marginTop: "30px",
+    color: "#6B7280",
+  }}
+>
+  © 2026 Royal Ceylon Gems. All Rights Reserved.
+</p>
       </footer>
     </main>
   );
