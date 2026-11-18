@@ -67,6 +67,7 @@ const savePlatformSettings = async () => {
   const { error } = await supabase
     .from("site_settings")
     .update({
+      whatsapp_number: whatsappNumber,
       support_email: supportEmail,
       priority_whatsapp_fee: priorityFee,
       consultation_fee: consultationFee,
@@ -74,11 +75,14 @@ const savePlatformSettings = async () => {
     .eq("id", 1);
 
   if (error) {
+    console.error(error);
     alert("Save Failed");
     return;
   }
 
-  alert("Platform Settings Saved ✅");
+  alert("Settings Saved Successfully");
+
+  await loadSettings();
 };
   return (
     <main
