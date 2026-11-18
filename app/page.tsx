@@ -139,62 +139,89 @@ export default function Home() {
             color: "#D4AF37",
             marginBottom: "20px",
           }}
-        >
-          ROYAL CEYLON GEMS
-        </h1>
+          >
+            ROYAL CEYLON GEMS
+          </h1>
+  
+          <p
+  style={{
+    maxWidth: "1000px",
+    margin: "0 auto",
+    fontSize: "24px",
+    lineHeight: "1.8",
+    color: "#E5E7EB",
+  }}
+>
+  The Global Marketplace for Certified Gemstones,
+  Live Auctions, Escrow Protected Trading and
+  Investment Grade Rare Gems.
+</p>
 
-        <p
-          style={{
-            maxWidth: "900px",
-            margin: "0 auto",
-            fontSize: "24px",
-            lineHeight: "1.8",
-            color: "#E5E7EB",
-          }}
-        >
-          Discover rare, certified and investment-grade Sri Lankan
-          gemstones from trusted sellers around the world.
-        </p>
+<div
+  style={{
+    marginTop: "35px",
+    display: "flex",
+    justifyContent: "center",
+    gap: "20px",
+    flexWrap: "wrap",
+    color: "#D4AF37",
+    fontWeight: "bold",
+    fontSize: "16px",
+  }}
+>
+  <span>✓ Verified Sellers</span>
+  <span>✓ Escrow Protection</span>
+  <span>✓ Live Auctions</span>
+  <span>✓ Certified Gemstones</span>
+  <span>✓ Global Trading</span>
+</div>
+       <a href="/marketplace">
+  <button
+    style={{
+      background: "#D4AF37",
+      color: "#000",
+      border: "none",
+      padding: "16px 35px",
+      borderRadius: "10px",
+      fontWeight: "bold",
+      cursor: "pointer",
+    }}
+  >
+    Explore Marketplace
+  </button>
+</a>
 
-        <div
-          style={{
-            marginTop: "40px",
-            display: "flex",
-            justifyContent: "center",
-            gap: "20px",
-            flexWrap: "wrap",
-          }}
-        >
-          <a href="/marketplace">
-            <button
-              style={{
-                background: "#D4AF37",
-                color: "#000",
-                border: "none",
-                padding: "16px 35px",
-                borderRadius: "10px",
-                fontWeight: "bold",
-                cursor: "pointer",
-              }}
-            >
-              Explore Marketplace
-            </button>
-          </a>
+<a href="/auctions">
+  <button
+    style={{
+      background: "#10B981",
+      color: "#fff",
+      border: "none",
+      padding: "16px 35px",
+      borderRadius: "10px",
+      fontWeight: "bold",
+      cursor: "pointer",
+    }}
+  >
+    Live Auctions
+  </button>
+</a>
 
-          <a href="/register">
-            <button
-              style={{
-                background: "transparent",
-                color: "#fff",
-                border: "2px solid #D4AF37",
-                padding: "16px 35px",
-                borderRadius: "10px",
-                cursor: "pointer",
-              }}
-            >
-              Become a Seller
-            </button>
-          </a>
+<a href="/seller-register">
+  <button
+    style={{
+      background: "transparent",
+      color: "#fff",
+      border: "2px solid #D4AF37",
+      padding: "16px 35px",
+      borderRadius: "10px",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    Become a Seller
+  </button>
+</a>   
         </div>
       </section>
 
@@ -338,6 +365,53 @@ export default function Home() {
                   <h3 style={{ color: "#D4AF37" }}>
                     USD {gem.price}
                   </h3>
+                  <p
+  style={{
+    color: "#10B981",
+    fontWeight: "bold",
+    marginTop: "8px",
+  }}
+>
+  Chairman Verified Listing
+</p>
+
+<div
+  style={{
+    display: "flex",
+    gap: "10px",
+    marginTop: "15px",
+  }}
+>
+  <button
+    style={{
+      flex: 1,
+      background: "#D4AF37",
+      color: "#000",
+      border: "none",
+      padding: "12px",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    View Details
+  </button>
+
+  <button
+    style={{
+      flex: 1,
+      background: "#10B981",
+      color: "#fff",
+      border: "none",
+      padding: "12px",
+      borderRadius: "8px",
+      cursor: "pointer",
+      fontWeight: "bold",
+    }}
+  >
+    Make Offer
+  </button>
+</div>
                 </div>
               </div>
             </a>
@@ -345,13 +419,82 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categories */}
-      <section
+{/* Escrow Protection */}
+
+<section
+  style={{
+    padding: "90px 30px",
+    background: "#111827",
+    textAlign: "center",
+  }}
+>
+  <h2
+    style={{
+      color: "#D4AF37",
+      fontSize: "42px",
+      marginBottom: "20px",
+    }}
+  >
+    Escrow Protected Trading
+  </h2>
+
+  <p
+    style={{
+      maxWidth: "900px",
+      margin: "0 auto",
+      color: "#E5E7EB",
+      lineHeight: "1.8",
+      fontSize: "18px",
+    }}
+  >
+    Buyer payments remain protected until the gemstone
+    is received and verified. Seller delivery details
+    are released only after payment confirmation.
+  </p>
+
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns:
+        "repeat(auto-fit,minmax(220px,1fr))",
+      gap: "20px",
+      maxWidth: "1200px",
+      margin: "50px auto 0",
+    }}
+  >
+    {[
+      "Buyer Payment",
+      "Escrow Protection",
+      "Shipment",
+      "Delivery Verification",
+      "Fund Release",
+    ].map((step, index) => (
+      <div
+        key={step}
         style={{
-          padding: "80px 30px",
-          background: "#111827",
+          background: "#1F2937",
+          padding: "25px",
+          borderRadius: "15px",
+          border: "1px solid #D4AF37",
         }}
       >
+        <h2 style={{ color: "#D4AF37" }}>
+          {index + 1}
+        </h2>
+
+        <p>{step}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+{/* Categories */}
+<section
+  style={{
+    padding: "80px 30px",
+    background: "#111827",
+  }}
+>
         <h2
           style={{
             textAlign: "center",
@@ -501,13 +644,38 @@ export default function Home() {
         }}
       >
         <h2 style={{ color: "#D4AF37" }}>
-          ROYAL CEYLON GEMS
-        </h2>
+  ROYAL CEYLON GEMS
+</h2>
 
-        <p style={{ color: "#9CA3AF" }}>
-          Sri Lanka's Premier Luxury Gemstone Marketplace
-        </p>
+<p
+  style={{
+    color: "#9CA3AF",
+    maxWidth: "700px",
+    margin: "15px auto",
+    lineHeight: "1.8",
+  }}
+>
+  Global Marketplace for Certified Gemstones,
+  Live Auctions, Escrow Protected Transactions
+  and Investment Grade Gem Trading.
+</p>
 
+        <div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    gap: "25px",
+    flexWrap: "wrap",
+    marginTop: "25px",
+    color: "#D4AF37",
+    fontWeight: "bold",
+  }}
+>
+  <span>Verified Sellers</span>
+  <span>Escrow Protection</span>
+  <span>Live Auctions</span>
+  <span>Certificate Verification</span>
+</div>
         <div
           style={{
             marginTop: "25px",
@@ -517,15 +685,23 @@ export default function Home() {
             flexWrap: "wrap",
           }}
         >
-          <a href="/marketplace" style={{ color: "#fff" }}>
-            Marketplace
-          </a>
+           <a href="/marketplace" style={{ color: "#fff" }}>
+    Marketplace
+  </a>
 
-          <a href="/register" style={{ color: "#fff" }}>
-            Sell Gems
-          </a>
+  <a href="/auctions" style={{ color: "#fff" }}>
+    Auctions
+  </a>
 
-          <a href="/login" style={{ color: "#fff" }}>
+  <a href="/seller-register" style={{ color: "#fff" }}>
+    Become a Seller
+  </a>
+
+  <a href="/buyer-register" style={{ color: "#fff" }}>
+    Become a Buyer
+  </a>
+
+  <a href="/login" style={{ color: "#fff" }}>
             Login
           </a>
         </div>
