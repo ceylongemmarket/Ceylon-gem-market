@@ -207,16 +207,13 @@ const savePlatformSettings = async () => {
           style={inputStyle}
         />
 
-        <label>Featured Listing Fee ($)</label>
-        <input
-          type="number"
-          value={featuredListingFee}
-          onChange={(e) =>
-  setFeaturedListingFee(Number(e.target.value)    
-}
-          style={inputStyle}
-        />
-
+       <label>Featured Listing Fee ($)</label>
+<input
+  type="number"
+  value={featuredListingFee}
+  onChange={(e) => setFeaturedListingFee(Number(e.target.value))}
+  style={inputStyle}
+/>
         <button
           onClick={savePlatformSettings}
           style={{
