@@ -97,7 +97,7 @@ const savePlatformSettings = async () => {
 
   alert("Settings Saved Successfully");
   await loadSettings();
-  
+  };
   return (
     <main
       style={{
