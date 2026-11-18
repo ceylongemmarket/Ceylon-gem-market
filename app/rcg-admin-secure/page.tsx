@@ -212,14 +212,13 @@ const savePlatformSettings = async () => {
           type="number"
           value={featuredListingFee}
           onChange={(e) =>
-            setFeaturedFee(Number(e.target.value))
-          }
+  setFeaturedListingFee(Number(e.target.value)    
+}
           style={inputStyle}
         />
 
         <button
           onClick={savePlatformSettings}
-          }
           style={{
             background: "#D4AF37",
             color: "#000",
