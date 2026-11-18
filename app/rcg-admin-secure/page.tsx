@@ -36,7 +36,7 @@ const [registrationFee, setRegistrationFee] = useState(50);
 const [auctionCommission, setAuctionCommission] = useState(5);
 const [certificationFee, setCertificationFee] = useState(25);
 const [featuredListingFee, setFeaturedListingFee] = useState(15);
-  );
+  
 useEffect(() => {
   loadSettings();
 }, []);
