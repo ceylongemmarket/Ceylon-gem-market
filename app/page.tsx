@@ -228,7 +228,109 @@ export default function Home() {
           ))}
         </div>
       </section>
+{/* Featured Gemstones */}
 
+<section
+  style={{
+    padding: "80px 20px",
+    background: "#07111f",
+  }}
+>
+  <h2
+    style={{
+      textAlign: "center",
+      color: "#D4AF37",
+      fontSize: "42px",
+      marginBottom: "40px",
+    }}
+  >
+    Featured Gemstones
+  </h2>
+
+  <div
+    style={{
+      maxWidth: "1400px",
+      margin: "0 auto",
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
+      gap: "25px",
+    }}
+  >
+    {[
+      {
+        name: "Royal Blue Sapphire",
+        price: "$4,500",
+        image: "https://via.placeholder.com/400x250",
+      },
+      {
+        name: "Padparadscha Sapphire",
+        price: "$8,900",
+        image: "https://via.placeholder.com/400x250",
+      },
+      {
+        name: "Natural Ruby",
+        price: "$6,200",
+        image: "https://via.placeholder.com/400x250",
+      },
+    ].map((gem) => (
+      <div
+        key={gem.name}
+        style={{
+          background: "#111827",
+          borderRadius: "16px",
+          overflow: "hidden",
+          border: "1px solid #D4AF37",
+        }}
+      >
+        <img
+          src={gem.image}
+          alt={gem.name}
+          style={{
+            width: "100%",
+            height: "220px",
+            objectFit: "cover",
+          }}
+        />
+
+        <div style={{ padding: "20px" }}>
+          <h3>{gem.name}</h3>
+
+          <p
+            style={{
+              color: "#10B981",
+              fontWeight: "bold",
+            }}
+          >
+            Chairman Approved
+          </p>
+
+          <h2
+            style={{
+              color: "#D4AF37",
+            }}
+          >
+            {gem.price}
+          </h2>
+
+          <button
+            style={{
+              width: "100%",
+              background: "#D4AF37",
+              color: "#000",
+              border: "none",
+              padding: "12px",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontWeight: "bold",
+            }}
+          >
+            View Details
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
       {/* Categories */}
       <section
         style={{
