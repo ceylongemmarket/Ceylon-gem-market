@@ -22,22 +22,20 @@ const inputStyle = {
 } as const;
 
 export default function ChairmanDashboard() {
-  const [brokerCommission, setBrokerCommission] = useState(5);
-  const [registrationFee, setRegistrationFee] = useState(50);
-  const [auctionCommission, setAuctionCommission] = useState(10);
-  const [certificationFee, setCertificationFee] = useState(25);
-  const [featuredFee, setFeaturedFee] = useState(15);
+const [whatsappNumber, setWhatsappNumber] = useState("94771234567");
+const [supportEmail, setSupportEmail] = useState(
+  "support@royalceylongems.com"
+);
 
-  const [whatsappNumber, setWhatsappNumber] = useState("94771234567");
-  const [priorityFee, setPriorityFee] = useState(05);
-  const [consultationFee, setConsultationFee] = useState(05);
-  const [brokerCommission, setBrokerCommission] = useState(10);
-  const [registrationFee, setRegistrationFee] = useState(50);
-  const [auctionCommission, setAuctionCommission] = useState(5);
-  const [certificationFee, setCertificationFee] = useState(25);
-  const [featuredListingFee, setFeaturedListingFee] = useState(10);
-  const [supportEmail, setSupportEmail] = useState(
-    "support@royalceylongems.com"
+const [priorityFee, setPriorityFee] = useState(5);
+const [consultationFee, setConsultationFee] = useState(20);
+
+const [brokerCommission, setBrokerCommission] = useState(10);
+const [registrationFee, setRegistrationFee] = useState(50);
+
+const [auctionCommission, setAuctionCommission] = useState(5);
+const [certificationFee, setCertificationFee] = useState(25);
+const [featuredListingFee, setFeaturedListingFee] = useState(15);
   );
 useEffect(() => {
   loadSettings();
@@ -83,6 +81,11 @@ const savePlatformSettings = async () => {
       support_email: supportEmail,
       priority_whatsapp_fee: priorityFee,
       consultation_fee: consultationFee,
+      broker_commission: brokerCommission,
+      registration_fee: registrationFee,
+      auction_commission: auctionCommission,
+      certification_fee: certificationFee,
+      featured_listing_fee: featuredListingFee,
     })
     .eq("id", 1);
 
@@ -93,8 +96,8 @@ const savePlatformSettings = async () => {
   }
 
   alert("Settings Saved Successfully");
-
   await loadSettings();
+};
 };
   return (
     <main
@@ -207,7 +210,7 @@ const savePlatformSettings = async () => {
         <label>Featured Listing Fee ($)</label>
         <input
           type="number"
-          value={featuredFee}
+          value={featuredListingFee}
           onChange={(e) =>
             setFeaturedFee(Number(e.target.value))
           }
@@ -215,8 +218,7 @@ const savePlatformSettings = async () => {
         />
 
         <button
-          onClick={() =>
-            alert("Financial Settings Saved")
+          onClick={savePlatformSettings}
           }
           style={{
             background: "#D4AF37",
