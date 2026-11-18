@@ -97,8 +97,7 @@ const savePlatformSettings = async () => {
 
   alert("Settings Saved Successfully");
   await loadSettings();
-};
-};
+  
   return (
     <main
       style={{
@@ -207,13 +206,11 @@ const savePlatformSettings = async () => {
           style={inputStyle}
         />
 
-       <label>Featured Listing Fee ($)</label>
-<input
+  <label>Featured Listing Fee ($)</label>
+  <input
   type="number"
   value={featuredListingFee}
-  onChange={(e) =>
-    setFeaturedListingFee(Number(e.target.value))
-  }
+  onChange={(e) => setFeaturedListingFee(Number(e.target.value))}
   style={inputStyle}
 />
         <button
