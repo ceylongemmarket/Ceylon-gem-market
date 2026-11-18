@@ -29,8 +29,13 @@ export default function ChairmanDashboard() {
   const [featuredFee, setFeaturedFee] = useState(15);
 
   const [whatsappNumber, setWhatsappNumber] = useState("94771234567");
-  const [priorityFee, setPriorityFee] = useState(999);
-  const [consultationFee, setConsultationFee] = useState(999);
+  const [priorityFee, setPriorityFee] = useState(05);
+  const [consultationFee, setConsultationFee] = useState(05);
+  const [brokerCommission, setBrokerCommission] = useState(10);
+  const [registrationFee, setRegistrationFee] = useState(50);
+  const [auctionCommission, setAuctionCommission] = useState(5);
+  const [certificationFee, setCertificationFee] = useState(25);
+  const [featuredListingFee, setFeaturedListingFee] = useState(10);
   const [supportEmail, setSupportEmail] = useState(
     "support@royalceylongems.com"
   );
@@ -47,20 +52,27 @@ const loadSettings = async () => {
     .limit(1)
     .single();
 
-  console.log("SETTINGS DATA:", data);
-  console.log("SETTINGS ERROR:", error);
+console.log("SETTINGS DATA:", data);
+console.log("SETTINGS ERROR:", error);
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+if (error) {
+  console.error(error);
+  return;
+}
 
-  if (data) {
-    setWhatsappNumber(data.whatsapp_number || "");
-    setSupportEmail(data.support_email || "");
-    setPriorityFee(Number(data.priority_whatsapp_fee));
-    setConsultationFee(Number(data.consultation_fee));
-  }
+if (data) {
+  setWhatsappNumber(data.whatsapp_number || "");
+  setSupportEmail(data.support_email || "");
+  setPriorityFee(Number(data.priority_whatsapp_fee || 0));
+  setConsultationFee(Number(data.consultation_fee || 0));
+
+  setBrokerCommission(Number(data.broker_commission || 0));
+  setRegistrationFee(Number(data.registration_fee || 0));
+
+  setAuctionCommission(Number(data.auction_commission || 0));
+  setCertificationFee(Number(data.certification_fee || 0));
+  setFeaturedListingFee(Number(data.featured_listing_fee || 0));
+}
 };
 
 const savePlatformSettings = async () => {
