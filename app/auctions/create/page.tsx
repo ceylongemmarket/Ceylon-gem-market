@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function CreateAuction() {
   return (
     <main
@@ -58,18 +59,23 @@ export default function CreateAuction() {
           <option>7 Days - $15</option>
         </select>
 
-        <button
-          style={{
-            background: "#D4AF37",
-            color: "#000",
-            border: "none",
-            padding: "15px",
-            borderRadius: "8px",
-            fontWeight: "bold",
-          }}
-        >
-          Continue to Payment
-        </button>
+       <Link
+  href="/payment"
+  style={{
+    display: "block",
+    background: "#D4AF37",
+    color: "#000",
+    padding: "15px",
+    borderRadius: "8px",
+    fontWeight: "bold",
+    textAlign: "center",
+    textDecoration: "none",
+    width: "100%",
+    boxSizing: "border-box",
+  }}
+>
+  Continue to Payment
+</Link>
       </div>
     </main>
   );
