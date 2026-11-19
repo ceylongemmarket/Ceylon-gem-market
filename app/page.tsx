@@ -330,6 +330,24 @@ export default function Home() {
       </div>
     ))}
   </div>
+  <div
+  style={{
+    textAlign: "center",
+    marginTop: "40px",
+  }}
+>
+  <a
+    href="/marketplace"
+    style={{
+      color: "#D4AF37",
+      fontWeight: "bold",
+      fontSize: "18px",
+      textDecoration: "none",
+    }}
+  >
+    See More Gems →
+  </a>
+</div>
 </section>
 
 {/* Live Auctions */}
