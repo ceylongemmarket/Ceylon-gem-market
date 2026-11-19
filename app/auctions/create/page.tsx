@@ -36,7 +36,18 @@ export default function CreateAuction() {
         <input placeholder="Weight (Ct)" />
 
         <input placeholder="Starting Bid" />
+        <input placeholder="Reserve Price" />
 
+        <textarea
+        placeholder="Auction Description"
+        rows={5}
+        />
+
+        <label>Gem Photos</label>
+        <input type="file" multiple />
+
+        <label>Certificate Upload</label>
+        <input type="file" />
         <select>
           <option>1 Day - $2</option>
           <option>2 Days - $3</option>
