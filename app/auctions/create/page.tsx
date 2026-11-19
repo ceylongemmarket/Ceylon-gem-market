@@ -14,19 +14,24 @@ export default function CreateAuction() {
 >
 
   <div
-    style={{
-      minHeight: "100vh",
-      background: "rgba(2,10,30,0.88)",
-      padding: "40px",
-    }}
-  >
-      <h1
+  style={{
+    minHeight: "100vh",
+    background: "rgba(2,10,30,0.88)",
+    padding: "40px",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  }}
+>
+    <h1
   style={{
     color: "#D4AF37",
-    fontSize: "48px",
-    fontWeight: "800",
+    fontSize: "64px",
+    fontWeight: "900",
     marginBottom: "10px",
-    letterSpacing: "1px",
+    letterSpacing: "2px",
+    textAlign: "center",
+    textShadow: "0 0 25px rgba(212,175,55,0.5)",
   }}
 >
   Create Luxury Gem Auction
@@ -36,29 +41,52 @@ export default function CreateAuction() {
   style={{
     color: "#d1d5db",
     marginBottom: "30px",
-    fontSize: "18px",
+    fontSize: "20px",
+    textAlign: "center",
+    maxWidth: "900px",
   }}
 >
   List certified gemstones for international bidding and premium buyers.
 </p>
 
-      <div
+   <div
   style={{
-    maxWidth: "800px",
+    width: "100%",
+    maxWidth: "900px",
+    margin: "0 auto",
     display: "grid",
     gap: "20px",
-    background: "rgba(8,18,45,0.85)",
-    backdropFilter: "blur(15px)",
-    border: "1px solid rgba(212,175,55,0.4)",
-    borderRadius: "20px",
-    padding: "30px",
-    boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+    background: "rgba(8,18,45,0.88)",
+    backdropFilter: "blur(20px)",
+    border: "2px solid rgba(212,175,55,0.5)",
+    borderRadius: "24px",
+    padding: "40px",
+    boxShadow: "0 25px 80px rgba(0,0,0,0.6)",
   }}
 >
-        <input placeholder="Gem Name" />
+        <input
+  placeholder="Gem Name"
+  style={{
+    padding: "16px",
+    borderRadius: "12px",
+    border: "1px solid #D4AF37",
+    background: "#0B1730",
+    color: "#fff",
+    fontSize: "16px",
+  }}
+/>
 
-        <input placeholder="Gem Type" />
-
+        <input
+  placeholder="Gem Type"
+  style={{
+    padding: "16px",
+    borderRadius: "12px",
+    border: "1px solid #D4AF37",
+    background: "#0B1730",
+    color: "#fff",
+    fontSize: "16px",
+  }}
+/>
         <select>
           <option>Cut Stone</option>
           <option>Rough Stone</option>
@@ -70,9 +98,17 @@ export default function CreateAuction() {
         <input placeholder="Reserve Price" />
 
         <textarea
-        placeholder="Auction Description"
-        rows={5}
-        />
+  placeholder="Auction Description"
+  rows={5}
+  style={{
+    padding: "16px",
+    borderRadius: "12px",
+    border: "1px solid #D4AF37",
+    background: "#0B1730",
+    color: "#fff",
+    fontSize: "16px",
+  }}
+/>
 
         <label>Gem Photos</label>
         <input type="file" multiple />
