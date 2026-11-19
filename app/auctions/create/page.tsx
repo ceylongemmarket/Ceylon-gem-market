@@ -2,29 +2,59 @@ import Link from "next/link";
 export default function CreateAuction() {
   return (
     <main
-      style={{
-        background: "#0B1220",
-        minHeight: "100vh",
-        color: "#fff",
-        padding: "40px",
-      }}
-    >
+  style={{
+    minHeight: "100vh",
+    backgroundImage:
+      "url('https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=2000&q=80')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundAttachment: "fixed",
+    color: "#fff",
+  }}
+>
+
+  <div
+    style={{
+      minHeight: "100vh",
+      background: "rgba(2,10,30,0.88)",
+      padding: "40px",
+    }}
+  >
       <h1
-        style={{
-          color: "#D4AF37",
-          marginBottom: "30px",
-        }}
-      >
-        Create Auction
-      </h1>
+  style={{
+    color: "#D4AF37",
+    fontSize: "48px",
+    fontWeight: "800",
+    marginBottom: "10px",
+    letterSpacing: "1px",
+  }}
+>
+  Create Luxury Gem Auction
+</h1>
+
+<p
+  style={{
+    color: "#d1d5db",
+    marginBottom: "30px",
+    fontSize: "18px",
+  }}
+>
+  List certified gemstones for international bidding and premium buyers.
+</p>
 
       <div
-        style={{
-          maxWidth: "700px",
-          display: "grid",
-          gap: "20px",
-        }}
-      >
+  style={{
+    maxWidth: "800px",
+    display: "grid",
+    gap: "20px",
+    background: "rgba(8,18,45,0.85)",
+    backdropFilter: "blur(15px)",
+    border: "1px solid rgba(212,175,55,0.4)",
+    borderRadius: "20px",
+    padding: "30px",
+    boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+  }}
+>
         <input placeholder="Gem Name" />
 
         <input placeholder="Gem Type" />
@@ -76,6 +106,7 @@ export default function CreateAuction() {
 >
   Continue to Payment
 </Link>
+        </div>
       </div>
     </main>
   );
