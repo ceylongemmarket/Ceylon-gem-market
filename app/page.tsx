@@ -76,6 +76,12 @@ export default function Home() {
           >
             Auctions
           </a>
+          <a
+  href="/auctions/create"
+  style={{ color: "#fff", textDecoration: "none" }}
+>
+  Create Auction
+</a>
 
           <a
             href="/contact"
