@@ -209,6 +209,7 @@ export default function Home() {
               Live Auctions
             </button>
           </a>
+          </div>
         </div>
       </section>
 
