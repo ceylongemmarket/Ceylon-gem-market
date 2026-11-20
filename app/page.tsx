@@ -93,12 +93,32 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section
-        style={{
-          padding: "120px 20px",
-          textAlign: "center",
-        }}
-      >
+<section
+  style={{
+    padding: "120px 20px",
+    textAlign: "center",
+    backgroundImage:
+      "url('https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=1920&q=80')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    position: "relative",
+  }}
+>
+  <div
+  style={{
+    position: "absolute",
+    inset: 0,
+    background: "rgba(0,0,0,0.65)",
+  }}
+></div>
+
+<div
+  style={{
+    position: "relative",
+    zIndex: 1,
+  }}
+>
         <h1
           style={{
             fontSize: "clamp(40px, 8vw, 70px)",
