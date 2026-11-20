@@ -287,17 +287,17 @@ export default function Home() {
       {
         name: "Royal Blue Sapphire",
         price: "$4,500",
-        image: "https://via.placeholder.com/400x250",
+        image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=800&q=80",
       },
       {
         name: "Padparadscha Sapphire",
         price: "$8,900",
-        image: "https://via.placeholder.com/400x250",
+        image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=800&q=80",
       },
       {
         name: "Natural Ruby",
         price: "$6,200",
-        image: "https://via.placeholder.com/400x250",
+        image: "https://images.unsplash.com/photo-1615655406736-b37c4fabf923?auto=format&fit=crop&w=800&q=80",
       },
     ].map((gem) => (
       <div
